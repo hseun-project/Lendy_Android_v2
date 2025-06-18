@@ -1,18 +1,27 @@
 package com.hseun.lendy_v2.ui
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.hseun.lendy_v2.ui.theme.Gray300
 import com.hseun.lendy_v2.ui.theme.LendyFontStyle
@@ -55,9 +64,42 @@ fun LendyButton(
 }
 
 @Composable
+fun InputTextButton(
+    modifier: Modifier = Modifier,
+    enabled: Boolean,
+    buttonText: String,
+    onClick: () -> Unit
+) {
+    Text(
+        modifier = modifier
+            .width(68.dp)
+            .wrapContentHeight()
+            .border(
+                width = 1.dp,
+                color = if (enabled) Main else Gray300,
+                shape = CircleShape
+            )
+            .padding(
+                top = 4.dp,
+                bottom = 4.dp,
+                start = 12.dp,
+                end = 12.dp
+            )
+            .noRippleClickable {
+                onClick()
+            },
+        text = buttonText,
+        style = LendyFontStyle.medium12,
+        color = if (enabled) Main else Gray300,
+        textAlign = TextAlign.Center
+    )
+}
+
+@Composable
 fun AuthButton(
     modifier: Modifier = Modifier,
     enabled: Boolean,
+    loading: Boolean = false,
     buttonText: String,
     isNotText: String,
     moveToWhereText: String,
@@ -74,7 +116,8 @@ fun AuthButton(
         LendyButton(
             enabled = enabled,
             text = buttonText,
-            onClick = onButtonClick
+            onClick = onButtonClick,
+            loading = loading
         )
         Row(
             modifier = modifier
