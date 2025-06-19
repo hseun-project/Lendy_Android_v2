@@ -98,7 +98,7 @@ private fun AlertClick(
 }
 
 @Composable
-fun ConfirmClick(
+private fun ConfirmClick(
     modifier: Modifier = Modifier,
     onClickCancel: () -> Unit,
     onClickConfirm: () -> Unit
@@ -135,8 +135,7 @@ fun ConfirmClick(
 }
 
 @Composable
-fun DialogContainer(
-    modifier: Modifier = Modifier,
+private fun DialogContainer(
     onClick: () -> Unit,
     body: @Composable () -> Unit
 ) {
