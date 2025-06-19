@@ -226,9 +226,7 @@ fun LendyCodeTextField(
     modifier: Modifier = Modifier,
     input: String,
     imeAction: ImeAction,
-    enabled: Boolean,
     timer: String?,
-    onButtonClick: () -> Unit,
     onValueChange: (String) -> Unit
 ) {
     LendyBasicTextField(
@@ -240,19 +238,11 @@ fun LendyCodeTextField(
         keyboardType = KeyboardType.Text,
         onValueChange = onValueChange,
         trailingIcon = {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                if (timer != null) {
-                    Text(
-                        text = timer,
-                        style = LendyFontStyle.medium13,
-                        color = Main
-                    )
-                    Spacer(modifier = modifier.width(8.dp))
-                }
-                InputTextButton(
-                    enabled = enabled,
-                    buttonText = "확인",
-                    onClick = onButtonClick
+            if (timer != null) {
+                Text(
+                    text = timer,
+                    style = LendyFontStyle.medium13,
+                    color = Main
                 )
             }
         }
@@ -406,9 +396,7 @@ fun LendyCodeInput(
     input: String,
     imeAction: ImeAction,
     errorType: InputErrorType,
-    buttonEnabled: Boolean,
     timer: String?,
-    onButtonClick: () -> Unit,
     onValueChange: (String) -> Unit
 ) {
     LendyBasicInput(
@@ -418,9 +406,7 @@ fun LendyCodeInput(
             LendyCodeTextField(
                 input = input,
                 imeAction = imeAction,
-                enabled = buttonEnabled,
                 timer = timer,
-                onButtonClick = onButtonClick,
                 onValueChange = onValueChange
             )
         }
