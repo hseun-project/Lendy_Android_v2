@@ -43,145 +43,37 @@ val Pretendard = FontFamily(
 object LendyFontStyle {
     private val defaultTextColor = Black
 
-    val regular12 = TextStyle(
+    private fun createTextStyle(weight: FontWeight, size: Int) = TextStyle(
         fontFamily = Pretendard,
-        fontWeight = FontWeight.Normal,
-        fontSize = 12.sp,
+        fontWeight = weight,
+        fontSize = size.sp,
         color = defaultTextColor
     )
 
-    val medium10 = TextStyle(
-        fontFamily = Pretendard,
-        fontWeight = FontWeight.Medium,
-        fontSize = 10.sp,
-        color = defaultTextColor
-    )
-    val medium12 = TextStyle(
-        fontFamily = Pretendard,
-        fontWeight = FontWeight.Medium,
-        fontSize = 12.sp,
-        color = defaultTextColor
-    )
-    val medium13 = TextStyle(
-        fontFamily = Pretendard,
-        fontWeight = FontWeight.Medium,
-        fontSize = 13.sp,
-        color = defaultTextColor
-    )
-    val medium14 = TextStyle(
-        fontFamily = Pretendard,
-        fontWeight = FontWeight.Medium,
-        fontSize = 14.sp,
-        color = defaultTextColor
-    )
-    val medium15 = TextStyle(
-        fontFamily = Pretendard,
-        fontWeight = FontWeight.Medium,
-        fontSize = 15.sp,
-        color = defaultTextColor
-    )
-    val medium16 = TextStyle(
-        fontFamily = Pretendard,
-        fontWeight = FontWeight.Medium,
-        fontSize = 16.sp,
-        color = defaultTextColor
-    )
-    val medium17 = TextStyle(
-        fontFamily = Pretendard,
-        fontWeight = FontWeight.Medium,
-        fontSize = 18.sp,
-        color = defaultTextColor
-    )
-    val medium18 = TextStyle(
-        fontFamily = Pretendard,
-        fontWeight = FontWeight.Medium,
-        fontSize = 18.sp,
-        color = defaultTextColor
-    )
+    val regular12 = createTextStyle(FontWeight.Normal, 12)
 
-    val semi11 = TextStyle(
-        fontFamily = Pretendard,
-        fontWeight = FontWeight.SemiBold,
-        fontSize = 11.sp,
-        color = defaultTextColor
-    )
-    val semi12 = TextStyle(
-        fontFamily = Pretendard,
-        fontWeight = FontWeight.SemiBold,
-        fontSize = 12.sp,
-        color = defaultTextColor
-    )
-    val semi13 = TextStyle(
-        fontFamily = Pretendard,
-        fontWeight = FontWeight.SemiBold,
-        fontSize = 13.sp,
-        color = defaultTextColor
-    )
-    val semi14 = TextStyle(
-        fontFamily = Pretendard,
-        fontWeight = FontWeight.SemiBold,
-        fontSize = 14.sp,
-        color = defaultTextColor
-    )
-    val semi15 = TextStyle(
-        fontFamily = Pretendard,
-        fontWeight = FontWeight.SemiBold,
-        fontSize = 15.sp,
-        color = defaultTextColor
-    )
-    val semi16 = TextStyle(
-        fontFamily = Pretendard,
-        fontWeight = FontWeight.SemiBold,
-        fontSize = 16.sp,
-        color = defaultTextColor
-    )
-    val semi18 = TextStyle(
-        fontFamily = Pretendard,
-        fontWeight = FontWeight.SemiBold,
-        fontSize = 18.sp,
-        color = defaultTextColor
-    )
-    val semi20 = TextStyle(
-        fontFamily = Pretendard,
-        fontWeight = FontWeight.SemiBold,
-        fontSize = 20.sp,
-        color = defaultTextColor
-    )
-    val semi21 = TextStyle(
-        fontFamily = Pretendard,
-        fontWeight = FontWeight.SemiBold,
-        fontSize = 21.sp,
-        color = defaultTextColor
-    )
-    val semi22 = TextStyle(
-        fontFamily = Pretendard,
-        fontWeight = FontWeight.SemiBold,
-        fontSize = 22.sp,
-        color = defaultTextColor
-    )
-    val semi24 = TextStyle(
-        fontFamily = Pretendard,
-        fontWeight = FontWeight.SemiBold,
-        fontSize = 24.sp,
-        color = defaultTextColor
-    )
+    val medium10 = createTextStyle(FontWeight.Medium, 10)
+    val medium12 = createTextStyle(FontWeight.Medium, 12)
+    val medium13 = createTextStyle(FontWeight.Medium, 13)
+    val medium14 = createTextStyle(FontWeight.Medium, 14)
+    val medium15 = createTextStyle(FontWeight.Medium, 15)
+    val medium16 = createTextStyle(FontWeight.Medium, 16)
+    val medium17 = createTextStyle(FontWeight.Medium, 17)
+    val medium18 = createTextStyle(FontWeight.Medium, 18)
 
-    val bold15 = TextStyle(
-        fontFamily = Pretendard,
-        fontWeight = FontWeight.Bold,
-        fontSize = 15.sp,
-        color = defaultTextColor
-    )
-    val bold18 = TextStyle(
-        fontFamily = Pretendard,
-        fontWeight = FontWeight.Bold,
-        fontSize = 18.sp,
-        color = defaultTextColor
-    )
-    val bold20 = TextStyle(
-        fontFamily = Pretendard,
-        fontWeight = FontWeight.Bold,
-        fontSize = 20.sp,
-        color = defaultTextColor
-    )
+    val semi11 = createTextStyle(FontWeight.SemiBold, 11)
+    val semi12 = createTextStyle(FontWeight.SemiBold, 12)
+    val semi13 = createTextStyle(FontWeight.SemiBold, 13)
+    val semi14 = createTextStyle(FontWeight.SemiBold, 14)
+    val semi15 = createTextStyle(FontWeight.SemiBold, 15)
+    val semi16 = createTextStyle(FontWeight.SemiBold, 16)
+    val semi18 = createTextStyle(FontWeight.SemiBold, 18)
+    val semi20 = createTextStyle(FontWeight.SemiBold, 20)
+    val semi21 = createTextStyle(FontWeight.SemiBold, 21)
+    val semi22 = createTextStyle(FontWeight.SemiBold, 22)
+    val semi24 = createTextStyle(FontWeight.SemiBold, 24)
+
+    val bold15 = createTextStyle(FontWeight.Bold, 15)
+    val bold18 = createTextStyle(FontWeight.Bold, 18)
+    val bold20 = createTextStyle(FontWeight.Bold, 20)
 }
