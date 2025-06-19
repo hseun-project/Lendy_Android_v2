@@ -212,7 +212,7 @@ private fun LendyMailTextField(
 }
 
 @Composable
-fun LendyCodeTextField(
+private fun LendyCodeTextField(
     modifier: Modifier = Modifier,
     input: String,
     imeAction: ImeAction,
@@ -269,7 +269,7 @@ private fun ErrorMessage(
 }
 
 @Composable
-fun LendyBasicInput(
+private fun LendyBasicInput(
     modifier: Modifier = Modifier,
     label: String,
     errorType: InputErrorType,
