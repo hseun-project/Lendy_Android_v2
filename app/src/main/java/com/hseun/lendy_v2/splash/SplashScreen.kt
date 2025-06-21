@@ -50,9 +50,9 @@ fun SplashScreen(
     }
 
     LaunchedEffect(isChecked) {
-        if (isSuccess) {
+        if (isSuccess == true) {
             navToMain()
-        } else {
+        } else if (isSuccess == false) {
             navToLogin()
         }
     }

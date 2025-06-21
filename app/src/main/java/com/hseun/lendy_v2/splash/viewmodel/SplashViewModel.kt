@@ -16,13 +16,18 @@ class SplashViewModel @Inject constructor(
 ) : ViewModel() {
     var isAutoLoginCheck by mutableStateOf(false)
         private set
-    var isAutoLoginSuccess by mutableStateOf(false)
+    var isAutoLoginSuccess by mutableStateOf<Boolean?>(null)
         private set
 
     fun autoLogin() {
         viewModelScope.launch {
-            isAutoLoginSuccess = repository.autoLogin()
-            isAutoLoginCheck = true
+            isAutoLoginSuccess = try {
+                repository.autoLogin()
+            } catch (e: Exception) {
+                false
+            } finally {
+                isAutoLoginCheck = true
+            }
         }
     }
 }
