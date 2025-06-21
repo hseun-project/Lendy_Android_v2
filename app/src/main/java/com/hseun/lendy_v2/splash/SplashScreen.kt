@@ -38,24 +38,22 @@ fun SplashScreen(
     val isSuccess = viewModel.isAutoLoginSuccess
 
     LaunchedEffect(Unit) {
+        val animationSpec = tween<Float>(
+            durationMillis = 1000,
+            easing = FastOutSlowInEasing
+        )
+        launch { alpha.animateTo(1f, animationSpec) }
         launch {
-            alpha.animateTo(
-                targetValue = 1f,
-                animationSpec = tween(
-                    durationMillis = 1000,
-                    easing = FastOutSlowInEasing
-                )
-            )
-        }
-        launch {
-            scale.animateTo(
-                targetValue = 1f,
-                animationSpec = tween(
-                    durationMillis = 1000,
-                    easing = FastOutSlowInEasing
-                )
-            )
+            scale.animateTo(1f, animationSpec)
             viewModel.autoLogin()
+        }
+    }
+
+    LaunchedEffect(isChecked) {
+        if (isSuccess) {
+            navToMain()
+        } else {
+            navToLogin()
         }
     }
 
@@ -76,13 +74,5 @@ fun SplashScreen(
             contentDescription = "Lendy Logo",
             contentScale = ContentScale.FillWidth
         )
-    }
-
-    LaunchedEffect(isChecked) {
-        if (isSuccess) {
-            navToMain()
-        } else {
-            navToLogin()
-        }
     }
 }
