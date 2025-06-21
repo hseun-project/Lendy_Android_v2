@@ -13,7 +13,9 @@ class SplashViewModel @Inject constructor(
     private val repository: SplashRepository
 ) : ViewModel() {
     var isAutoLoginCheck by mutableStateOf(false)
+        private set
     var isAutoLoginSuccess by mutableStateOf(false)
+        private set
 
     fun autoLogin() {
         viewModelScope.launch {
