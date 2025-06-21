@@ -5,14 +5,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hseun.lendy_v2.splash.repository.SplashRepositoryImpl
+import com.hseun.lendy_v2.splash.repository.SplashRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
-    private val repository: SplashRepositoryImpl
+    private val repository: SplashRepository
 ) : ViewModel() {
     var isAutoLoginCheck by mutableStateOf(false)
         private set
