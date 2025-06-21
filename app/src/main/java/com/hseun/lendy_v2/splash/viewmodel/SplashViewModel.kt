@@ -21,10 +21,10 @@ class SplashViewModel @Inject constructor(
 
     fun autoLogin() {
         viewModelScope.launch {
-            isAutoLoginSuccess = try {
-                repository.autoLogin()
+            try {
+                isAutoLoginSuccess = repository.autoLogin()
             } catch (e: Exception) {
-                false
+                isAutoLoginSuccess = false
             } finally {
                 isAutoLoginCheck = true
             }
