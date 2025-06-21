@@ -16,7 +16,9 @@ import androidx.navigation.compose.rememberNavController
 import com.hseun.lendy_v2.navigation.AuthNavigation
 import com.hseun.lendy_v2.ui.LendyTopBar
 import com.hseun.lendy_v2.ui.theme.Lendy_v2Theme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
