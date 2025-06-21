@@ -13,7 +13,7 @@ class TokenPreference(context: Context) {
     }
 
     fun setAccessToken(token: String) {
-        prefs.edit().putString(ACCESS_TOKEN_KEY, token).apply()
+        prefs.edit().putString(ACCESS_TOKEN_KEY, "Bearer $token").apply()
     }
     fun getAccessToken(): String? {
         return prefs.getString(ACCESS_TOKEN_KEY, null)
@@ -23,7 +23,7 @@ class TokenPreference(context: Context) {
     }
 
     fun setRefreshToken(token: String) {
-        prefs.edit().putString(REFRESH_TOKEN_KEY, token).apply()
+        prefs.edit().putString(REFRESH_TOKEN_KEY, "Bearer $token").apply()
     }
     fun getRefreshToken(): String? {
         return prefs.getString(REFRESH_TOKEN_KEY, null)

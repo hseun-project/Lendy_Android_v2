@@ -12,8 +12,8 @@ class SplashRepositoryImpl @Inject constructor (
 ) : SplashRepository {
     private fun getRefreshToken(): String? = pref.getRefreshToken()
     private fun saveToken(accessToken: String, refreshToken: String) {
-        pref.setAccessToken("Bearer $accessToken")
-        pref.setRefreshToken("Bearer $refreshToken")
+        pref.setAccessToken(accessToken)
+        pref.setRefreshToken(refreshToken)
     }
     private fun clearToken() {
         pref.clearAccessToken()
