@@ -12,9 +12,8 @@ class TokenPreference(context: Context) {
         private const val REFRESH_TOKEN_KEY = "refreshToken"
     }
 
-    @SuppressLint("CommitPrefEdits")
     fun setAccessToken(token: String) {
-        prefs.edit().putString(ACCESS_TOKEN_KEY, token)
+        prefs.edit().putString(ACCESS_TOKEN_KEY, token).apply()
     }
     fun getAccessToken(): String? {
         return prefs.getString(ACCESS_TOKEN_KEY, null)
@@ -23,9 +22,8 @@ class TokenPreference(context: Context) {
         prefs.edit().remove(ACCESS_TOKEN_KEY).apply()
     }
 
-    @SuppressLint("CommitPrefEdits")
     fun setRefreshToken(token: String) {
-        prefs.edit().putString(REFRESH_TOKEN_KEY, token)
+        prefs.edit().putString(REFRESH_TOKEN_KEY, token).apply()
     }
     fun getRefreshToken(): String? {
         return prefs.getString(REFRESH_TOKEN_KEY, null)
