@@ -24,8 +24,6 @@ import com.hseun.lendy_v2.splash.viewmodel.SplashViewModel
 import com.hseun.lendy_v2.ui.theme.Main
 import kotlinx.coroutines.launch
 
-const val NAVIGATION_SPLASH = "splash"
-
 @Composable
 fun SplashScreen(
     modifier: Modifier = Modifier,

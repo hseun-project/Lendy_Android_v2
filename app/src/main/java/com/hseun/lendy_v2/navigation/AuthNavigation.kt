@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.hseun.lendy_v2.splash.NAVIGATION_SPLASH
 import com.hseun.lendy_v2.splash.SplashScreen
 
 @Composable
@@ -13,9 +12,9 @@ fun AuthNavigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = NAVIGATION_SPLASH
+        startDestination = NavigationRoutes.SPLASH
     ) {
-        composable(NAVIGATION_SPLASH) {
+        composable(NavigationRoutes.SPLASH) {
             SplashScreen(
                 navToMain = {
                     // MainNavigation 호출
