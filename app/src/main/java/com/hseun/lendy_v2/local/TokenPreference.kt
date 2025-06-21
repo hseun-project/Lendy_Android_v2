@@ -8,8 +8,8 @@ class TokenPreference(context: Context) {
     private val prefs: SharedPreferences = context.getSharedPreferences("token_prefs", Context.MODE_PRIVATE)
 
     companion object {
-        private val ACCESS_TOKEN_KEY = "accessToken"
-        private val REFRESH_TOKEN_KEY = "refreshToken"
+        private const val ACCESS_TOKEN_KEY = "accessToken"
+        private const val REFRESH_TOKEN_KEY = "refreshToken"
     }
 
     @SuppressLint("CommitPrefEdits")
