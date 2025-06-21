@@ -1,4 +1,4 @@
-package com.hseun.lendy_v2.splash.repository
+package com.hseun.lendy_v2.auth.splash.repository
 
 import com.hseun.lendy_v2.local.TokenPreference
 import com.hseun.lendy_v2.network.AuthApi

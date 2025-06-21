@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.hseun.lendy_v2.splash.SplashScreen
+import com.hseun.lendy_v2.auth.splash.SplashScreen
 
 @Composable
 fun AuthNavigation(
