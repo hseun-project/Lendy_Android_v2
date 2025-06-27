@@ -2,6 +2,7 @@ package com.hseun.lendy_v2.auth.splash.repository
 
 import com.hseun.lendy_v2.network.AuthApi
 import com.hseun.lendy_v2.utils.Token
+import com.hseun.lendy_v2.utils.apiCall
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -12,20 +13,15 @@ class SplashRepositoryImpl @Inject constructor (
 ) : SplashRepository {
     override suspend fun autoLogin(): Boolean {
         val refreshToken = token.getRefreshToken() ?: return false
-        return try {
-            val response = api.refresh(refreshToken)
-            if (response.isSuccessful) {
-                response.body()?.let {
-                    token.saveToken(it.accessToken, it.refreshToken)
-                    true
-                } ?: false
-            } else {
-                token.clearToken()
-                false
+        apiCall("splash") { api.refresh(refreshToken) }
+            .onSuccess {
+                token.saveToken(it.accessToken, it.refreshToken)
+                return true
             }
-        } catch (e: Exception) {
-            token.clearToken()
-            false
-        }
+            .onFailure {
+                token.clearToken()
+                return false
+            }
+        return false
     }
 }
