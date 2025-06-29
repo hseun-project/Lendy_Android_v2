@@ -94,6 +94,7 @@ fun LoginScreen(
         }
         AuthButton(
             enabled = buttonEnabled,
+            loading = isLoading,
             buttonText = stringResource(id = R.string.login),
             isNotText = stringResource(id = R.string.login_is_not_member),
             moveToWhereText = stringResource(id = R.string.login_go_signup),
