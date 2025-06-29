@@ -14,13 +14,13 @@ class IdentificationViewModel @Inject constructor(
 ) : ViewModel() {
     var url by mutableStateOf("")
 
-    var isNavigateToLogin by mutableStateOf(false)
+    var isNavToMain by mutableStateOf(false)
     var isGetUrl by mutableStateOf<Boolean?>(null)
     var isLoading by mutableStateOf(false)
 
     fun onUrlLoaded(url: String) {
         if (url.startsWith("http://localhost:8080/open")) {
-            isNavigateToLogin = true
+            isNavToMain = true
         }
     }
 

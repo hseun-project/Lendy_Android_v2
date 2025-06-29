@@ -23,7 +23,7 @@ import com.hseun.lendy_v2.ui.LoadingView
 
 @SuppressLint("SetJavaScriptEnabled")
 @Composable
-fun VerificationScreen(
+fun IdentificationScreen(
     viewModel: IdentificationViewModel = hiltViewModel(),
     navigationGoBack: () -> Unit,
     navToMain: () -> Unit
@@ -32,7 +32,7 @@ fun VerificationScreen(
     var webView: WebView? by remember { mutableStateOf(null) }
 
     val currentUrl = viewModel.url
-    val isNavigateToSignIn = viewModel.isNavigateToLogin
+    val isNavToMain = viewModel.isNavToMain
     val isLoading = viewModel.isLoading
     val isGetUrl = viewModel.isGetUrl
 
@@ -44,8 +44,8 @@ fun VerificationScreen(
         }
     }
 
-    LaunchedEffect(isNavigateToSignIn) {
-        if (isNavigateToSignIn) {
+    LaunchedEffect(isNavToMain) {
+        if (isNavToMain) {
             navToMain()
         }
     }
