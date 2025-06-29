@@ -1,6 +1,7 @@
 package com.hseun.lendy_v2.network
 
 import com.hseun.lendy_v2.network.model.auth.IdentificationResponse
+import com.hseun.lendy_v2.network.model.auth.LoginRequest
 import com.hseun.lendy_v2.network.model.auth.SendMailRequest
 import com.hseun.lendy_v2.network.model.auth.SignUpRequest
 import com.hseun.lendy_v2.network.model.auth.TokenResponse
@@ -24,4 +25,7 @@ interface AuthApi {
 
     @GET("$AUTH/identification")
     suspend fun getIdentificationUrl(@Header("Authorization") token: String): Response<IdentificationResponse>
+
+    @POST("$AUTH/login")
+    suspend fun login(@Body request: LoginRequest): Response<TokenResponse>
 }
