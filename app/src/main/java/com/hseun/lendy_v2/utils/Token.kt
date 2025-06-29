@@ -1,10 +1,12 @@
 package com.hseun.lendy_v2.utils
 
 import com.hseun.lendy_v2.local.TokenPreference
+import dagger.Provides
+import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class Token (
+class Token @Inject constructor(
     private val pref: TokenPreference
 ) {
     fun getRefreshToken(): String? = pref.getRefreshToken()
