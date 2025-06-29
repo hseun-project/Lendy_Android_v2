@@ -44,11 +44,9 @@ fun SplashScreen(
             durationMillis = 1000,
             easing = FastOutSlowInEasing
         )
+        launch { viewModel.autoLogin() }
         launch { alpha.animateTo(1f, animationSpec) }
-        launch {
-            scale.animateTo(1f, animationSpec)
-            viewModel.autoLogin()
-        }
+        launch { scale.animateTo(1f, animationSpec) }
     }
 
     LaunchedEffect(isChecked) {
