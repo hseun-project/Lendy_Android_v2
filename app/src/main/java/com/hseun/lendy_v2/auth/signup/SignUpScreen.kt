@@ -119,16 +119,6 @@ fun SignUpScreen(
                     viewModel.onMailChange(input)
                 }
             )
-            LendyInput(
-                label = stringResource(id = R.string.auth_mail),
-                input = mail,
-                hint = stringResource(id = R.string.auth_mail),
-                imeAction = ImeAction.Next,
-                errorType = mailErrorType,
-                onValueChange = { input ->
-                    viewModel.onMailChange(input)
-                }
-            )
             LendyCodeInput(
                 input = code,
                 imeAction = ImeAction.Next,
