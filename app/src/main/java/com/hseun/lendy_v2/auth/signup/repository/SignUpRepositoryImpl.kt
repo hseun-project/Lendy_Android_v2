@@ -14,16 +14,16 @@ class SignUpRepositoryImpl @Inject constructor(
     private val api: AuthApi,
     private val token: Token
 ) : SignUpRepository {
-    override suspend fun sendMail(mail: String): Result<Unit> {
-        return apiCall("sendMail") { api.sendMail(SendMailRequest(mail)) }
+    override suspend fun sendMail(email: String): Result<Unit> {
+        return apiCall("sendMail") { api.sendMail(SendMailRequest(email)) }
     }
 
     override suspend fun signUp(
-        mail: String,
+        email: String,
         code: String,
         password: String
     ): Result<TokenResponse> {
-        val response = apiCall("signUp") { api.signUp(SignUpRequest(mail, code, password)) }
+        val response = apiCall("signUp") { api.signUp(SignUpRequest(email, code, password)) }
             .onSuccess { token.saveToken(it.accessToken, it.refreshToken) }
         return response
     }

@@ -16,8 +16,8 @@ import javax.inject.Inject
 class SignUpViewModel @Inject constructor(
     private val repository: SignUpRepository
 ) : ViewModel() {
-    var mail by mutableStateOf("")
-    var sendMail by mutableStateOf("")
+    var email by mutableStateOf("")
+    private var sendEmail by mutableStateOf("")
     var code by mutableStateOf("")
     var password by mutableStateOf("")
     var checkPassword by mutableStateOf("")
@@ -25,18 +25,18 @@ class SignUpViewModel @Inject constructor(
     var timer by mutableIntStateOf(0)
 
     var isLoading by mutableStateOf(false)
-    var isSendMailLoading by mutableStateOf(false)
+    var isSendEmailLoading by mutableStateOf(false)
     var isSignUpSuccess by mutableStateOf<Boolean?>(null)
-    var isSendMailSuccess by mutableStateOf<Boolean?>(null)
+    var isSendEmailSuccess by mutableStateOf<Boolean?>(null)
 
-    var mailErrorType by mutableStateOf(InputErrorType.NONE)
+    var emailErrorType by mutableStateOf(InputErrorType.NONE)
     var codeErrorType by mutableStateOf(InputErrorType.NONE)
     var pwErrorType by mutableStateOf(InputErrorType.NONE)
     var checkPwErrorType by mutableStateOf(InputErrorType.NONE)
 
     fun onMailChange(input: String) {
-        mail = input
-        mailErrorType = if (checkInputRegex(InputRegexType.MAIL, input)) InputErrorType.NONE else InputErrorType.MAIL_REGEX
+        email = input
+        emailErrorType = if (checkInputRegex(InputRegexType.MAIL, input)) InputErrorType.NONE else InputErrorType.MAIL_REGEX
     }
     fun onCodeChange(input: String) {
         code = input
@@ -53,41 +53,41 @@ class SignUpViewModel @Inject constructor(
     }
 
     fun changeIsSendMailSuccess(value: Boolean?) {
-        isSendMailSuccess = value
+        isSendEmailSuccess = value
     }
     fun changeIsSignUpSuccess(value: Boolean?) {
         isSignUpSuccess = value
     }
 
     fun onSendCodeClick() {
-        sendMail = mail
+        sendEmail = email
         codeErrorType = InputErrorType.NONE
         viewModelScope.launch {
-            isSendMailLoading = true
-            val result = repository.sendMail(mail)
-            isSendMailLoading = false
+            isSendEmailLoading = true
+            val result = repository.sendMail(email)
+            isSendEmailLoading = false
             result.onSuccess {
                 timer = 600
-                isSendMailSuccess = true
+                isSendEmailSuccess = true
             }.onFailure {
                 if (it.message == "409") {
-                    mailErrorType = InputErrorType.OVERLAP_MAIL
+                    emailErrorType = InputErrorType.OVERLAP_MAIL
                 } else {
-                    isSendMailSuccess = false
+                    isSendEmailSuccess = false
                 }
             }
         }
     }
 
     fun onSignUpClick() {
-        if (mail != sendMail) {
-            mailErrorType = InputErrorType.CHANGE_MAIL
+        if (email != sendEmail) {
+            emailErrorType = InputErrorType.CHANGE_MAIL
             return
         }
 
         viewModelScope.launch {
             isLoading = true
-            val result = repository.signUp(mail, code, password)
+            val result = repository.signUp(email, code, password)
             isLoading = false
             result.onSuccess {
                 isSignUpSuccess = true

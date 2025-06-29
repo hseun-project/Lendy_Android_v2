@@ -23,7 +23,6 @@ import com.hseun.lendy_v2.ui.AuthButton
 import com.hseun.lendy_v2.ui.AuthLogo
 import com.hseun.lendy_v2.ui.LendyAlertDialog
 import com.hseun.lendy_v2.ui.LendyCodeInput
-import com.hseun.lendy_v2.ui.LendyInput
 import com.hseun.lendy_v2.ui.LendyMailInput
 import com.hseun.lendy_v2.ui.LendyPasswordInput
 import com.hseun.lendy_v2.ui.theme.White
@@ -40,12 +39,12 @@ fun SignUpScreen(
 ) {
     val focusManager = LocalFocusManager.current
 
-    val mail = viewModel.mail
+    val email = viewModel.email
     val code = viewModel.code
     val password = viewModel.password
     val checkPassword = viewModel.checkPassword
 
-    val mailErrorType = viewModel.mailErrorType
+    val emailErrorType = viewModel.emailErrorType
     val codeErrorType = viewModel.codeErrorType
     val pwErrorType = viewModel.pwErrorType
     val checkPwErrorType = viewModel.checkPwErrorType
@@ -53,24 +52,24 @@ fun SignUpScreen(
     val timer = viewModel.timer
 
     val isLoading = viewModel.isLoading
-    val isSendMailLoading = viewModel.isSendMailLoading
-    val isSendMailSuccess = viewModel.isSendMailSuccess
+    val isSendEmailLoading = viewModel.isSendEmailLoading
+    val isSendEmailSuccess = viewModel.isSendEmailSuccess
     val isSignUpSuccess = viewModel.isSignUpSuccess
 
-    val mailButtonEnabled by remember(isSendMailLoading, mailErrorType) {
+    val emailButtonEnabled by remember(isSendEmailLoading, emailErrorType) {
         derivedStateOf {
-            !isSendMailLoading &&
-                    mail.isNotEmpty() &&
-                    mailErrorType == InputErrorType.NONE
+            !isSendEmailLoading &&
+                    email.isNotEmpty() &&
+                    emailErrorType == InputErrorType.NONE
         }
     }
-    val buttonEnabled by remember(isLoading, mailErrorType, pwErrorType, checkPwErrorType) {
+    val buttonEnabled by remember(isLoading, emailErrorType, pwErrorType, checkPwErrorType) {
         derivedStateOf {
             !isLoading &&
-                    mail.isNotEmpty() &&
+                    email.isNotEmpty() &&
                     code.isNotEmpty() &&
                     password.isNotEmpty() &&
-                    mailErrorType == InputErrorType.NONE &&
+                    emailErrorType == InputErrorType.NONE &&
                     pwErrorType == InputErrorType.NONE &&
                     checkPwErrorType == InputErrorType.NONE &&
                     codeErrorType == InputErrorType.NONE
@@ -88,7 +87,7 @@ fun SignUpScreen(
         )
     }
 
-    if (isSendMailSuccess == false) {
+    if (isSendEmailSuccess == false) {
         LendyAlertDialog(
             title = "인증 코드 전송에 실패하였습니다",
             onClick = {
@@ -110,10 +109,10 @@ fun SignUpScreen(
         ) {
             AuthLogo()
             LendyMailInput(
-                input = mail,
+                input = email,
                 imeAction = ImeAction.Next,
-                errorType = mailErrorType,
-                buttonEnabled = mailButtonEnabled,
+                errorType = emailErrorType,
+                buttonEnabled = emailButtonEnabled,
                 onButtonClick = {
                     viewModel.onSendCodeClick()
                 },

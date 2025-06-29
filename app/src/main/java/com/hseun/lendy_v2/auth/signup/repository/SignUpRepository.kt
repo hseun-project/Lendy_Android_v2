@@ -7,8 +7,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 
 interface SignUpRepository {
-    suspend fun sendMail(mail: String): Result<Unit>
-    suspend fun signUp(mail: String, code: String, password: String): Result<TokenResponse>
+    suspend fun sendMail(email: String): Result<Unit>
+    suspend fun signUp(email: String, code: String, password: String): Result<TokenResponse>
 }
 
 @Module
