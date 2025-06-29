@@ -109,10 +109,16 @@ class CustomWebViewClient(
 ) : WebViewClient() {
     override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
         val url = request?.url.toString()
-        if (url.startsWith("http://localhost:8080/open")) {
-            onRedirectToFinalUrl(url)
-            return true
+        return try {
+            if (url.startsWith("http://localhost:8080/open")) {
+                onRedirectToFinalUrl(url)
+                true
+            } else {
+                false
+            }
+        } catch (e: Exception) {
+            Log.e("CustomWebViewClient", e.message.toString())
+            false
         }
-        return false
     }
 }
