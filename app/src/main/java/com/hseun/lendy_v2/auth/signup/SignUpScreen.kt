@@ -23,7 +23,7 @@ import com.hseun.lendy_v2.ui.AuthButton
 import com.hseun.lendy_v2.ui.AuthLogo
 import com.hseun.lendy_v2.ui.LendyAlertDialog
 import com.hseun.lendy_v2.ui.LendyCodeInput
-import com.hseun.lendy_v2.ui.LendyMailInput
+import com.hseun.lendy_v2.ui.LendySendMailInput
 import com.hseun.lendy_v2.ui.LendyPasswordInput
 import com.hseun.lendy_v2.ui.theme.White
 import com.hseun.lendy_v2.ui.utils.addFocusCleaner
@@ -108,7 +108,7 @@ fun SignUpScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             AuthLogo()
-            LendyMailInput(
+            LendySendMailInput(
                 input = email,
                 imeAction = ImeAction.Next,
                 errorType = emailErrorType,
@@ -117,7 +117,7 @@ fun SignUpScreen(
                     viewModel.onSendCodeClick()
                 },
                 onValueChange = { input ->
-                    viewModel.onMailChange(input)
+                    viewModel.onEmailChange(input)
                 }
             )
             LendyCodeInput(

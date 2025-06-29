@@ -34,7 +34,7 @@ class SignUpViewModel @Inject constructor(
     var pwErrorType by mutableStateOf(InputErrorType.NONE)
     var checkPwErrorType by mutableStateOf(InputErrorType.NONE)
 
-    fun onMailChange(input: String) {
+    fun onEmailChange(input: String) {
         email = input
         emailErrorType = if (checkInputRegex(InputRegexType.MAIL, input)) InputErrorType.NONE else InputErrorType.MAIL_REGEX
     }
