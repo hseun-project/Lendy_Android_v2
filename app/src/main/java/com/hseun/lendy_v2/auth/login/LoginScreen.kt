@@ -42,6 +42,7 @@ fun LoginScreen(
     val isLoading = viewModel.isLoading
     val isLoginSuccess = viewModel.isLoginSuccess
 
+    val loginErrorType = if (isLoginSuccess == false) InputErrorType.WRONG_MAIL_OR_PW else InputErrorType.NONE
     val buttonEnabled by remember(isLoading, email, password) {
         derivedStateOf {
             !isLoading &&
@@ -85,7 +86,7 @@ fun LoginScreen(
                 input = password,
                 hint = stringResource(id = R.string.auth_pw),
                 imeAction = ImeAction.Done,
-                errorType = if (isLoginSuccess == false) InputErrorType.WRONG_MAIL_OR_PW else InputErrorType.NONE,
+                errorType = loginErrorType,
                 onValueChange = { input ->
                     viewModel.onPasswordChange(input)
                 }
