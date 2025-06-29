@@ -45,11 +45,11 @@ class SignUpViewModel @Inject constructor(
     fun onPasswordChange(input: String) {
         password = input
         pwErrorType = if (checkInputRegex(InputRegexType.PASSWORD, input)) InputErrorType.NONE else InputErrorType.PW_REGEX
-        checkPwErrorType = if (password == checkPassword) InputErrorType.NONE else InputErrorType.NOT_SAME_PW
+        checkPwErrorType = if (checkPassword.isEmpty() || password == checkPassword) InputErrorType.NONE else InputErrorType.NOT_SAME_PW
     }
     fun onCheckPasswordChange(input: String) {
         checkPassword = input
-        checkPwErrorType = if (password == checkPassword) InputErrorType.NONE else InputErrorType.NOT_SAME_PW
+        checkPwErrorType = if (checkPassword.isEmpty() || password == checkPassword) InputErrorType.NONE else InputErrorType.NOT_SAME_PW
     }
 
     fun changeIsSendMailSuccess(value: Boolean?) {
