@@ -1,4 +1,4 @@
-package com.hseun.lendy_v2.splash
+package com.hseun.lendy_v2.auth.splash
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
@@ -22,7 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.hseun.lendy_v2.R
-import com.hseun.lendy_v2.splash.viewmodel.SplashViewModel
+import com.hseun.lendy_v2.auth.splash.viewmodel.SplashViewModel
 import com.hseun.lendy_v2.ui.theme.Main
 import kotlinx.coroutines.launch
 
@@ -44,11 +44,9 @@ fun SplashScreen(
             durationMillis = 1000,
             easing = FastOutSlowInEasing
         )
+        launch { viewModel.autoLogin() }
         launch { alpha.animateTo(1f, animationSpec) }
-        launch {
-            scale.animateTo(1f, animationSpec)
-            viewModel.autoLogin()
-        }
+        launch { scale.animateTo(1f, animationSpec) }
     }
 
     LaunchedEffect(isChecked) {
