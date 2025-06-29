@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.hseun.lendy_v2.auth.identification.IdentificationScreen
+import com.hseun.lendy_v2.auth.login.LoginScreen
 import com.hseun.lendy_v2.auth.signup.SignUpScreen
 import com.hseun.lendy_v2.auth.splash.SplashScreen
 
@@ -22,7 +23,9 @@ fun AuthNavigation(
                     // MainNavigation 호출
                 },
                 navToLogin = {
-                    // 로그인 페이지로 이동
+                    navController.navigate(NavigationRoutes.LOGIN) {
+                        popUpTo(NavigationRoutes.SPLASH) { inclusive = true }
+                    }
                 }
             )
         }
@@ -32,7 +35,9 @@ fun AuthNavigation(
                     navController.navigate(NavigationRoutes.IDENTIFICATION)
                 },
                 navToLogin = {
-                    // 로그인 페이지로 이동
+                    navController.navigate(NavigationRoutes.LOGIN) {
+                        popUpTo(NavigationRoutes.SPLASH) { inclusive = true }
+                    }
                 }
             )
         }
@@ -43,6 +48,18 @@ fun AuthNavigation(
                 },
                 navToMain = {
                     // MainNavigation 호출
+                }
+            )
+        }
+        composable(NavigationRoutes.LOGIN) {
+            LoginScreen(
+                navToMain = {
+                    // MainNavigation 호출
+                },
+                navToSignUp = {
+                    navController.navigate(NavigationRoutes.SIGN_UP) {
+                        popUpTo(NavigationRoutes.LOGIN) { inclusive = true }
+                    }
                 }
             )
         }
