@@ -10,7 +10,7 @@ import com.hseun.lendy_v2.auth.signup.SignUpScreen
 import com.hseun.lendy_v2.auth.splash.SplashScreen
 
 @Composable
-fun AuthNavigation(
+fun LendyNavigation(
     navController: NavHostController
 ) {
     NavHost(
@@ -20,7 +20,9 @@ fun AuthNavigation(
         composable(NavigationRoutes.SPLASH) {
             SplashScreen(
                 navToMain = {
-                    // MainNavigation 호출
+                    navController.navigate(NavigationRoutes.HOME) {
+                        popUpTo(NavigationRoutes.SPLASH) { inclusive = true }
+                    }
                 },
                 navToLogin = {
                     navController.navigate(NavigationRoutes.LOGIN) {
@@ -36,7 +38,7 @@ fun AuthNavigation(
                 },
                 navToLogin = {
                     navController.navigate(NavigationRoutes.LOGIN) {
-                        popUpTo(NavigationRoutes.SPLASH) { inclusive = true }
+                        popUpTo(NavigationRoutes.SIGN_UP) { inclusive = true }
                     }
                 }
             )
@@ -47,14 +49,18 @@ fun AuthNavigation(
                     navController.popBackStack()
                 },
                 navToMain = {
-                    // MainNavigation 호출
+                    navController.navigate(NavigationRoutes.HOME) {
+                        popUpTo(NavigationRoutes.IDENTIFICATION) { inclusive = true }
+                    }
                 }
             )
         }
         composable(NavigationRoutes.LOGIN) {
             LoginScreen(
                 navToMain = {
-                    // MainNavigation 호출
+                    navController.navigate(NavigationRoutes.HOME) {
+                        popUpTo(NavigationRoutes.LOGIN) { inclusive = true }
+                    }
                 },
                 navToSignUp = {
                     navController.navigate(NavigationRoutes.SIGN_UP) {
@@ -62,6 +68,15 @@ fun AuthNavigation(
                     }
                 }
             )
+        }
+        composable(NavigationRoutes.HOME) {
+            // Home 화면
+        }
+        composable(NavigationRoutes.OPEN_LOAN) {
+            // 공개 대출
+        }
+        composable(NavigationRoutes.MY_PAGE) {
+            // 마이페이지
         }
     }
 }
