@@ -17,5 +17,5 @@ abstract class SignUpModule {
     @Binds
     abstract fun bindSignUpRepository(
         impl: SignUpRepositoryImpl
-    ): SignUpRepository
+    ) : SignUpRepository
 }

@@ -23,8 +23,7 @@ class SignUpRepositoryImpl @Inject constructor(
         code: String,
         password: String
     ): Result<TokenResponse> {
-        val response = apiCall("signUp") { api.signUp(SignUpRequest(email, code, password)) }
+        return apiCall("signUp") { api.signUp(SignUpRequest(email, code, password)) }
             .onSuccess { token.saveToken(it.accessToken, it.refreshToken) }
-        return response
     }
 }
