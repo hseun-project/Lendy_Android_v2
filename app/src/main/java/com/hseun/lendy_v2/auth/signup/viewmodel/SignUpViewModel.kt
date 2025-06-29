@@ -61,6 +61,7 @@ class SignUpViewModel @Inject constructor(
 
     fun onSendCodeClick() {
         sendMail = mail
+        codeErrorType = InputErrorType.NONE
         viewModelScope.launch {
             isSendMailLoading = true
             val result = repository.sendMail(mail)

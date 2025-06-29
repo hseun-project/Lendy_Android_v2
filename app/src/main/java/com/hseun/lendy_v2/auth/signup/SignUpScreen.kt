@@ -68,10 +68,12 @@ fun SignUpScreen(
         derivedStateOf {
             !isLoading &&
                     mail.isNotEmpty() &&
+                    code.isNotEmpty() &&
                     password.isNotEmpty() &&
                     mailErrorType == InputErrorType.NONE &&
                     pwErrorType == InputErrorType.NONE &&
-                    checkPwErrorType == InputErrorType.NONE
+                    checkPwErrorType == InputErrorType.NONE &&
+                    codeErrorType == InputErrorType.NONE
         }
     }
 
