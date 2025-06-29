@@ -23,12 +23,13 @@ import com.hseun.lendy_v2.ui.AuthButton
 import com.hseun.lendy_v2.ui.AuthLogo
 import com.hseun.lendy_v2.ui.LendyAlertDialog
 import com.hseun.lendy_v2.ui.LendyCodeInput
-import com.hseun.lendy_v2.ui.LendyMailInput
+import com.hseun.lendy_v2.ui.LendySendMailInput
 import com.hseun.lendy_v2.ui.LendyPasswordInput
 import com.hseun.lendy_v2.ui.theme.White
 import com.hseun.lendy_v2.ui.utils.addFocusCleaner
 import com.hseun.lendy_v2.utils.InputErrorType
 import com.hseun.lendy_v2.utils.formatTimer
+import kotlin.math.log
 
 @Composable
 fun SignUpScreen(
@@ -108,7 +109,7 @@ fun SignUpScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             AuthLogo()
-            LendyMailInput(
+            LendySendMailInput(
                 input = email,
                 imeAction = ImeAction.Next,
                 errorType = emailErrorType,
@@ -117,7 +118,7 @@ fun SignUpScreen(
                     viewModel.onSendCodeClick()
                 },
                 onValueChange = { input ->
-                    viewModel.onMailChange(input)
+                    viewModel.onEmailChange(input)
                 }
             )
             LendyCodeInput(
@@ -158,6 +159,7 @@ fun SignUpScreen(
                     end = 30.dp
                 ),
             enabled = buttonEnabled,
+            loading = isLoading,
             buttonText = stringResource(id = R.string.signup),
             isNotText = stringResource(id = R.string.signup_is_member),
             moveToWhereText = stringResource(id = R.string.signup_go_login),

@@ -16,5 +16,5 @@ abstract class IdentificationModule {
     @Binds
     abstract fun bindIdentificationRepository(
         impl: IdentificationRepositoryImpl
-    ): IdentificationRepository
+    ) : IdentificationRepository
 }

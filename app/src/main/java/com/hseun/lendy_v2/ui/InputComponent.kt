@@ -189,9 +189,8 @@ private fun LendyMailTextField(
     modifier: Modifier = Modifier,
     input: String,
     imeAction: ImeAction,
-    enabled: Boolean,
-    onButtonClick: () -> Unit,
-    onValueChange: (String) -> Unit
+    onValueChange: (String) -> Unit,
+    trailingIcon: @Composable () -> Unit
 ) {
     LendyBasicTextField(
         modifier = modifier,
@@ -201,13 +200,7 @@ private fun LendyMailTextField(
         textStyle = LendyFontStyle.medium15,
         keyboardType = KeyboardType.Email,
         onValueChange = onValueChange,
-        trailingIcon = {
-            InputTextButton(
-                enabled = enabled,
-                buttonText = "인증요청",
-                onClick = onButtonClick
-            )
-        }
+        trailingIcon = trailingIcon
     )
 }
 
@@ -358,7 +351,7 @@ fun LendyNumberInput(
 }
 
 @Composable
-fun LendyMailInput(
+fun LendySendMailInput(
     input: String,
     imeAction: ImeAction,
     errorType: InputErrorType,
@@ -373,11 +366,30 @@ fun LendyMailInput(
             LendyMailTextField(
                 input = input,
                 imeAction = imeAction,
-                enabled = buttonEnabled,
-                onButtonClick = onButtonClick,
-                onValueChange = onValueChange
+                onValueChange = onValueChange,
+                trailingIcon = {
+                    InputTextButton(
+                        enabled = buttonEnabled,
+                        buttonText = "인증요청",
+                        onClick = onButtonClick
+                    )
+                }
             )
         }
+    )
+}
+
+@Composable
+fun LendyMailInput(
+    input: String,
+    imeAction: ImeAction,
+    onValueChange: (String) -> Unit
+) {
+    LendyMailTextField(
+        input = input,
+        imeAction = imeAction,
+        onValueChange = onValueChange,
+        trailingIcon = {}
     )
 }
 

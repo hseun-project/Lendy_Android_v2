@@ -15,5 +15,5 @@ abstract class SplashModule {
     @Binds
     abstract fun bindSplashRepository(
         impl: SplashRepositoryImpl
-    ): SplashRepository
+    ) : SplashRepository
 }
