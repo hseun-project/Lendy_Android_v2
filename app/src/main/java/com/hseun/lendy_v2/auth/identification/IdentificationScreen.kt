@@ -37,9 +37,11 @@ fun IdentificationScreen(
     val isGetUrl = viewModel.isGetUrl
 
     LaunchedEffect(Unit) {
-        if (!isLoading && isGetUrl == null) {
-            viewModel.getStartUrl()
-        } else if (isGetUrl == false) {
+        viewModel.getStartUrl()
+    }
+
+    LaunchedEffect(isGetUrl) {
+        if (isGetUrl == false) {
             Toast.makeText(context, "본인인증 화면을 불러오는 데 실패했습니다", Toast.LENGTH_SHORT).show()
         }
     }
@@ -62,45 +64,44 @@ fun IdentificationScreen(
         onPressBack()
     }
 
-    if (isLoading) {
-        LoadingView(
-            text = "본인인증 화면을 불러오는 중입니다"
-        )
-    }
+    when {
+        isLoading -> {
+            LoadingView(
+                text = "본인인증 화면을 불러오는 중입니다"
+            )
+        }
+        isGetUrl == true -> {
+            AndroidView(
+                factory = {
+                    val myWebView = WebView(it)
+                    myWebView.webViewClient = CustomWebViewClient { url ->
+                        viewModel.onUrlLoaded(url)
+                    }
 
-    if (isGetUrl == true) {
-        AndroidView(
-            factory = {
-                val myWebView = WebView(it)
-                myWebView.webViewClient = CustomWebViewClient { url ->
-                    viewModel.onUrlLoaded(url)
-                }
+                    myWebView.settings.apply {
+                        javaScriptEnabled = true
+                        domStorageEnabled = true
+                        mixedContentMode = WebSettings.MIXED_CONTENT_NEVER_ALLOW
+                        loadsImagesAutomatically = true
+                        cacheMode = WebSettings.LOAD_DEFAULT
+                        textZoom = 100
+                        mediaPlaybackRequiresUserGesture = false
+                    }
 
-                myWebView.settings.apply {
-                    javaScriptEnabled = true
-                    domStorageEnabled = true
-                    mixedContentMode = WebSettings.MIXED_CONTENT_NEVER_ALLOW
-                    loadsImagesAutomatically = true
-                    cacheMode = WebSettings.LOAD_DEFAULT
-                    textZoom = 100
-                    mediaPlaybackRequiresUserGesture = false
+                    myWebView.apply {
+                        webView = this
+                        layoutParams = ViewGroup.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.MATCH_PARENT
+                        )
+                    }
+                },
+                update = {
+                    viewModel.onUrlLoaded(it.url.toString())
+                    it.loadUrl(currentUrl)
                 }
-
-                myWebView.apply {
-                    webView = this
-                    layoutParams = ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT
-                    )
-                }
-            },
-            update = {
-                Log.d("url", currentUrl)
-                Log.d("current", it.url.toString())
-                viewModel.onUrlLoaded(it.url.toString())
-                it.loadUrl(currentUrl)
-            }
-        )
+            )
+        }
     }
 }
 
