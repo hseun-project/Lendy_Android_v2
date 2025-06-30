@@ -28,6 +28,7 @@ import com.hseun.lendy_v2.ui.utils.noRippleClickable
 import com.hseun.lendy_v2.utils.DuringType
 import com.hseun.lendy_v2.utils.calculateEndDate
 import java.util.Date
+import java.util.Locale
 
 @Composable
 fun LentListItem(
@@ -72,7 +73,6 @@ fun LentListItem(
     }
 }
 
-@SuppressLint("DefaultLocale")
 @Composable
 private fun LentItemText(
     modifier: Modifier = Modifier,
@@ -103,7 +103,7 @@ private fun LentItemText(
         Text(
             modifier = modifier
                 .align(Alignment.CenterEnd),
-            text = "₩ ${String.format("%,d", money)}",
+            text = "₩ ${String.format(Locale.getDefault(), "%,d", money)}",
             style = LendyFontStyle.semi16
         )
     }

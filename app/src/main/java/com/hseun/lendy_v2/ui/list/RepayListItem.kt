@@ -30,6 +30,7 @@ import com.hseun.lendy_v2.utils.DuringType
 import com.hseun.lendy_v2.utils.calculateDueDate
 import com.hseun.lendy_v2.utils.calculateEndDate
 import java.util.Date
+import java.util.Locale
 
 @Composable
 fun RepayListItem(
@@ -75,7 +76,6 @@ fun RepayListItem(
     }
 }
 
-@SuppressLint("DefaultLocale")
 @Composable
 fun MyRepayItemText(
     modifier: Modifier = Modifier,
@@ -94,11 +94,11 @@ fun MyRepayItemText(
             verticalAlignment = Alignment.Bottom
         ) {
             Text(
-                text = String.format("%,d", money - repayment),
+                text = String.format(Locale.getDefault(), "%,d", money - repayment),
                 style = LendyFontStyle.semi18
             )
             Text(
-                text = " / ${String.format(" %,d", money)}",
+                text = " / ${String.format(Locale.getDefault(), " %,d", money)}",
                 style = LendyFontStyle.medium14,
                 color = Gray600
             )
