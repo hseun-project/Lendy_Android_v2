@@ -1,6 +1,5 @@
 package com.hseun.lendy_v2.utils
 
-import androidx.compose.ui.res.stringResource
 import com.hseun.lendy_v2.R
 
 enum class InputErrorType {
