@@ -184,7 +184,7 @@ private fun MyInfo(
 }
 
 @Composable
-fun BankInfo(
+private fun BankInfo(
     modifier: Modifier = Modifier,
     bankName: String,
     bankNumber: String,
