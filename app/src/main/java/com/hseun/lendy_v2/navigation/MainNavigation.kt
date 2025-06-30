@@ -10,6 +10,7 @@ import androidx.navigation.navArgument
 import com.hseun.lendy_v2.main.bank.ModifyBankScreen
 import com.hseun.lendy_v2.main.home.HomeScreen
 import com.hseun.lendy_v2.main.mypage.MyPageScreen
+import com.hseun.lendy_v2.main.openloan.OpenLoanScreen
 
 @Composable
 fun MainNavigation(
@@ -29,7 +30,9 @@ fun MainNavigation(
             )
         }
         composable(NavigationRoutes.OPEN_LOAN) {
-            // 공개 대출
+            OpenLoanScreen(
+                navController = navController
+            )
         }
         composable(NavigationRoutes.MY_PAGE) {
             MyPageScreen(

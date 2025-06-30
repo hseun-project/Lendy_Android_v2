@@ -196,7 +196,7 @@ fun RequestList(
         title = "대출 요청",
         dataList = dataList,
         navController = navController,
-        routerBuilder = { data -> "applyDetail/${data.id}" },
+        routerBuilder = { data -> "requestDetail/${data.id}" },
         listItemComponent = { data, onClick ->
             RequestListItem(data = data, onButtonClick = onClick)
         }
