@@ -1,5 +1,6 @@
 package com.hseun.lendy_v2.utils
 
+import androidx.compose.ui.res.stringResource
 import com.hseun.lendy_v2.R
 
 enum class InputErrorType {
@@ -16,7 +17,9 @@ enum class InputErrorType {
     WRONG_CODE,
 
     OVER_MAX_PRICE,
-    OVER_INTEREST
+    OVER_INTEREST,
+
+    IS_NOT_DIGIT
 }
 
 fun inputErrorMessage(errorType: InputErrorType): Int {
@@ -35,5 +38,7 @@ fun inputErrorMessage(errorType: InputErrorType): Int {
 
         InputErrorType.OVER_MAX_PRICE -> R.string.error_over_max_price
         InputErrorType.OVER_INTEREST -> R.string.error_over_interest
+
+        InputErrorType.IS_NOT_DIGIT -> R.string.error_is_not_digits
     }
 }
