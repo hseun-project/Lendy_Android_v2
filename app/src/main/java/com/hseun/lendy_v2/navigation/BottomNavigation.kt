@@ -50,16 +50,17 @@ sealed class BottomNavItem(
     )
 }
 
+private val navItems = listOf<BottomNavItem>(
+    BottomNavItem.OpenLoan,
+    BottomNavItem.Home,
+    BottomNavItem.MyPage
+)
+
 @Composable
 fun BottomNavigation(
     modifier: Modifier = Modifier,
     navController: NavController
 ) {
-    val navItems = listOf<BottomNavItem>(
-        BottomNavItem.OpenLoan,
-        BottomNavItem.Home,
-        BottomNavItem.MyPage
-    )
     Row(
         modifier = modifier
             .wrapContentHeight()
