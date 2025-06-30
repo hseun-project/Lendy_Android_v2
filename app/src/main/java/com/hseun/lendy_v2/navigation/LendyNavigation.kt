@@ -8,6 +8,7 @@ import com.hseun.lendy_v2.auth.identification.IdentificationScreen
 import com.hseun.lendy_v2.auth.login.LoginScreen
 import com.hseun.lendy_v2.auth.signup.SignUpScreen
 import com.hseun.lendy_v2.auth.splash.SplashScreen
+import com.hseun.lendy_v2.home.HomeScreen
 
 @Composable
 fun LendyNavigation(
@@ -70,7 +71,12 @@ fun LendyNavigation(
             )
         }
         composable(NavigationRoutes.HOME) {
-            // Home 화면
+            HomeScreen(
+                navController = navController,
+                navToApplyLoan = {
+                    // 대출 신청 화면으로 이동
+                }
+            )
         }
         composable(NavigationRoutes.OPEN_LOAN) {
             // 공개 대출
