@@ -18,21 +18,33 @@ class HomeRepositoryImpl @Inject constructor(
     private val repayApi: RepayApi,
     private val token: Token
 ) : HomeRepository {
-    private val accessToken = token.getAccessToken() ?: ""
+    private val accessToken = token.getAccessToken()
 
     override suspend fun getUserInfo(): Result<UserInfoResponse> {
+        if (accessToken.isNullOrEmpty()) {
+            return Result.failure(Error("Token is not found"))
+        }
         return apiCall("getUserInfo") { userApi.getUserInfo(accessToken) }
     }
 
     override suspend fun getRequestList(): Result<List<RequestListItemData>> {
+        if (accessToken.isNullOrEmpty()) {
+            return Result.failure(Error("Token is not found"))
+        }
         return apiCall("getRequestList") { loanApi.getRequestList(accessToken, ApplyLoan.PRIVATE_LOAN) }
     }
 
     override suspend fun getLentList(): Result<List<LentListItemData>> {
+        if (accessToken.isNullOrEmpty()) {
+            return Result.failure(Error("Token is not found"))
+        }
         return apiCall("getLentList") { loanApi.getLentList(accessToken) }
     }
 
     override suspend fun getRepayList(): Result<List<RepayListItemData>> {
+        if (accessToken.isNullOrEmpty()) {
+            return Result.failure(Error("Token is not found"))
+        }
         return apiCall("getRepayList") { repayApi.getRepayList(accessToken) }
     }
 }
