@@ -9,7 +9,7 @@ import java.util.Date
 fun calculateEndDate(startDate: Date, duringType: DuringType, during: Int): LocalDate {
     return try {
         val date = startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
-        return when(duringType) {
+        when(duringType) {
             DuringType.DAY -> date.plusDays(during.toLong())
             DuringType.MONTH -> date.plusMonths(during.toLong())
         }
