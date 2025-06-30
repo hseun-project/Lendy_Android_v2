@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.hseun.lendy_v2.main.home.HomeScreen
+import com.hseun.lendy_v2.main.mypage.MyPageScreen
 
 @Composable
 fun MainNavigation(
@@ -27,7 +28,12 @@ fun MainNavigation(
             // 공개 대출
         }
         composable(NavigationRoutes.MY_PAGE) {
-            // 마이페이지
+            MyPageScreen(
+                navToAuth = navToAuth,
+                navToModifyBank = {
+                    // 계좌 수정으로 이동
+                }
+            )
         }
     }
 }
