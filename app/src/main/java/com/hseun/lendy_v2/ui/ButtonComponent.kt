@@ -23,6 +23,7 @@ import com.hseun.lendy_v2.ui.theme.LendyFontStyle
 import com.hseun.lendy_v2.ui.theme.Main
 import com.hseun.lendy_v2.ui.theme.White
 import com.hseun.lendy_v2.ui.utils.noRippleClickable
+import com.hseun.lendy_v2.ui.utils.singleClickEvent
 
 @Composable
 fun LendyButton(
@@ -134,6 +135,39 @@ fun AuthButton(
                 text = moveToWhereText,
                 style = LendyFontStyle.bold15,
                 color = Main
+            )
+        }
+    }
+}
+
+@Composable
+fun LendyLoanListButton(
+    modifier: Modifier = Modifier,
+    text: String,
+    onClick: () -> Unit
+) {
+    singleClickEvent { singleEvent ->
+        Button(
+            modifier = modifier
+                .fillMaxWidth()
+                .height(42.dp),
+            shape = RoundedCornerShape(4.dp),
+            onClick = {
+                singleEvent.event {
+                    onClick()
+                }
+            },
+            colors = ButtonColors(
+                containerColor = Main,
+                contentColor = White,
+                disabledContainerColor = Gray300,
+                disabledContentColor = White
+            )
+        ) {
+            Text(
+                text = text,
+                style = LendyFontStyle.semi18,
+                color = White
             )
         }
     }

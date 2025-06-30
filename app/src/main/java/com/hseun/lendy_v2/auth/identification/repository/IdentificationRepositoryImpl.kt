@@ -12,8 +12,12 @@ class IdentificationRepositoryImpl @Inject constructor(
     private val api: AuthApi,
     private val token: Token
 ) : IdentificationRepository {
+    private val accessToken = token.getAccessToken()
+
     override suspend fun getUrl(): Result<IdentificationResponse> {
-        val accessToken = token.getAccessToken() ?: return Result.failure(Error("Token is empty"))
+        if (accessToken.isNullOrEmpty()) {
+            return Result.failure(Error("Token is not found"))
+        }
         return apiCall("getIdentificationUrl") { api.getIdentificationUrl(accessToken) }
     }
 }

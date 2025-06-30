@@ -11,7 +11,8 @@ import com.hseun.lendy_v2.auth.splash.SplashScreen
 
 @Composable
 fun AuthNavigation(
-    navController: NavHostController
+    navController: NavHostController,
+    navToMain: () -> Unit
 ) {
     NavHost(
         navController = navController,
@@ -19,9 +20,7 @@ fun AuthNavigation(
     ) {
         composable(NavigationRoutes.SPLASH) {
             SplashScreen(
-                navToMain = {
-                    // MainNavigation 호출
-                },
+                navToMain = navToMain,
                 navToLogin = {
                     navController.navigate(NavigationRoutes.LOGIN) {
                         popUpTo(NavigationRoutes.SPLASH) { inclusive = true }
@@ -36,7 +35,7 @@ fun AuthNavigation(
                 },
                 navToLogin = {
                     navController.navigate(NavigationRoutes.LOGIN) {
-                        popUpTo(NavigationRoutes.SPLASH) { inclusive = true }
+                        popUpTo(NavigationRoutes.SIGN_UP) { inclusive = true }
                     }
                 }
             )
@@ -46,16 +45,12 @@ fun AuthNavigation(
                 navigationGoBack = {
                     navController.popBackStack()
                 },
-                navToMain = {
-                    // MainNavigation 호출
-                }
+                navToMain = navToMain
             )
         }
         composable(NavigationRoutes.LOGIN) {
             LoginScreen(
-                navToMain = {
-                    // MainNavigation 호출
-                },
+                navToMain = navToMain,
                 navToSignUp = {
                     navController.navigate(NavigationRoutes.SIGN_UP) {
                         popUpTo(NavigationRoutes.LOGIN) { inclusive = true }
