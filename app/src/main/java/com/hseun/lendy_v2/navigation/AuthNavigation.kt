@@ -8,11 +8,11 @@ import com.hseun.lendy_v2.auth.identification.IdentificationScreen
 import com.hseun.lendy_v2.auth.login.LoginScreen
 import com.hseun.lendy_v2.auth.signup.SignUpScreen
 import com.hseun.lendy_v2.auth.splash.SplashScreen
-import com.hseun.lendy_v2.home.HomeScreen
 
 @Composable
-fun LendyNavigation(
-    navController: NavHostController
+fun AuthNavigation(
+    navController: NavHostController,
+    navToMain: () -> Unit
 ) {
     NavHost(
         navController = navController,
@@ -20,11 +20,7 @@ fun LendyNavigation(
     ) {
         composable(NavigationRoutes.SPLASH) {
             SplashScreen(
-                navToMain = {
-                    navController.navigate(NavigationRoutes.HOME) {
-                        popUpTo(NavigationRoutes.SPLASH) { inclusive = true }
-                    }
-                },
+                navToMain = navToMain,
                 navToLogin = {
                     navController.navigate(NavigationRoutes.LOGIN) {
                         popUpTo(NavigationRoutes.SPLASH) { inclusive = true }
@@ -49,40 +45,18 @@ fun LendyNavigation(
                 navigationGoBack = {
                     navController.popBackStack()
                 },
-                navToMain = {
-                    navController.navigate(NavigationRoutes.HOME) {
-                        popUpTo(NavigationRoutes.IDENTIFICATION) { inclusive = true }
-                    }
-                }
+                navToMain = navToMain
             )
         }
         composable(NavigationRoutes.LOGIN) {
             LoginScreen(
-                navToMain = {
-                    navController.navigate(NavigationRoutes.HOME) {
-                        popUpTo(NavigationRoutes.LOGIN) { inclusive = true }
-                    }
-                },
+                navToMain = navToMain,
                 navToSignUp = {
                     navController.navigate(NavigationRoutes.SIGN_UP) {
                         popUpTo(NavigationRoutes.LOGIN) { inclusive = true }
                     }
                 }
             )
-        }
-        composable(NavigationRoutes.HOME) {
-            HomeScreen(
-                navController = navController,
-                navToApplyLoan = {
-                    // 대출 신청 화면으로 이동
-                }
-            )
-        }
-        composable(NavigationRoutes.OPEN_LOAN) {
-            // 공개 대출
-        }
-        composable(NavigationRoutes.MY_PAGE) {
-            // 마이페이지
         }
     }
 }

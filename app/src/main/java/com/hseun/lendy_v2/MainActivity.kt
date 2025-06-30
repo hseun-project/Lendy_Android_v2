@@ -9,12 +9,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.hseun.lendy_v2.navigation.AuthNavigation
 import com.hseun.lendy_v2.navigation.BottomNavigation
-import com.hseun.lendy_v2.navigation.LendyNavigation
-import com.hseun.lendy_v2.navigation.NavigationRoutes
+import com.hseun.lendy_v2.navigation.MainNavigation
 import com.hseun.lendy_v2.ui.LendyTopBar
 import com.hseun.lendy_v2.ui.theme.Lendy_v2Theme
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,28 +38,29 @@ class MainActivity : ComponentActivity() {
 fun LendyScreen(
     modifier: Modifier = Modifier
 ) {
-    val bottomBarRoutes = listOf(
-        NavigationRoutes.HOME,
-        NavigationRoutes.OPEN_LOAN,
-        NavigationRoutes.MY_PAGE
-    )
-
     val navController = rememberNavController()
-    val currentBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentDestination = currentBackStackEntry?.destination?.route
+    var isAuthenticated by remember { mutableStateOf(false) }
 
-    Scaffold (
-        topBar = { LendyTopBar() },
-        bottomBar = {
-            if (currentDestination in bottomBarRoutes) {
-                BottomNavigation(navController = navController)
+    if (isAuthenticated) {
+        Scaffold(
+            topBar = { LendyTopBar() },
+            bottomBar = { BottomNavigation(navController = navController) }
+        ) {
+            Box(modifier = modifier.padding(it)) {
+                MainNavigation(
+                    navController = navController,
+                    navToAuth = {
+                        isAuthenticated = false
+                    }
+                )
             }
         }
-    ) {
-        Box(modifier = modifier.padding(it)) {
-            LendyNavigation(
-                navController = navController
-            )
-        }
+    } else {
+        AuthNavigation(
+            navController = navController,
+            navToMain = {
+                isAuthenticated = true
+            }
+        )
     }
 }
