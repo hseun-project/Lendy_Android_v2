@@ -1,4 +1,4 @@
-package com.hseun.lendy_v2.home.repository
+package com.hseun.lendy_v2.main.home.repository
 
 import com.hseun.lendy_v2.network.model.loan.LentListItemData
 import com.hseun.lendy_v2.network.model.loan.RequestListItemData

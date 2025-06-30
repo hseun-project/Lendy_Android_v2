@@ -1,4 +1,4 @@
-package com.hseun.lendy_v2.home
+package com.hseun.lendy_v2.main.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -22,7 +22,7 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.hseun.lendy_v2.home.viewmodel.HomeViewModel
+import com.hseun.lendy_v2.main.home.viewmodel.HomeViewModel
 import com.hseun.lendy_v2.network.model.loan.LentListItemData
 import com.hseun.lendy_v2.network.model.loan.RequestListItemData
 import com.hseun.lendy_v2.network.model.repay.RepayListItemData

@@ -1,4 +1,4 @@
-package com.hseun.lendy_v2.home.repository
+package com.hseun.lendy_v2.main.home.repository
 
 import com.hseun.lendy_v2.network.LoanApi
 import com.hseun.lendy_v2.network.RepayApi

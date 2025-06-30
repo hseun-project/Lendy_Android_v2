@@ -1,4 +1,4 @@
-package com.hseun.lendy_v2.home.viewmodel
+package com.hseun.lendy_v2.main.home.viewmodel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -6,7 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hseun.lendy_v2.home.repository.HomeRepository
+import com.hseun.lendy_v2.main.home.repository.HomeRepository
 import com.hseun.lendy_v2.network.model.loan.LentListItemData
 import com.hseun.lendy_v2.network.model.loan.RequestListItemData
 import com.hseun.lendy_v2.network.model.repay.RepayListItemData
