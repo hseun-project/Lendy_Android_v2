@@ -35,6 +35,7 @@ import com.hseun.lendy_v2.ui.LendyButton
 import com.hseun.lendy_v2.ui.LendyConfirmDialog
 import com.hseun.lendy_v2.ui.LoadingView
 import com.hseun.lendy_v2.ui.list.ApplyListItem
+import com.hseun.lendy_v2.ui.theme.BackgroundColor
 import com.hseun.lendy_v2.ui.theme.Gray600
 import com.hseun.lendy_v2.ui.theme.LendyFontStyle
 import com.hseun.lendy_v2.ui.theme.White
@@ -73,7 +74,7 @@ fun MyPageScreen(
         Column(
             modifier = modifier
                 .fillMaxWidth()
-                .background(White)
+                .background(BackgroundColor)
                 .verticalScroll(scrollState)
         ) {
             Spacer(modifier = modifier.height(30.dp))
