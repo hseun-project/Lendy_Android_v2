@@ -7,13 +7,17 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -212,7 +216,7 @@ fun Dropdown(
     var headerHeight by remember { mutableIntStateOf(0) }
     val addOffset = with(LocalDensity.current) { 20.dp.toPx() }.toInt()
 
-    Column (
+    Column(
         modifier = modifier
             .padding(
                 start = 30.dp
@@ -252,7 +256,6 @@ fun Dropdown(
 @Composable
 private fun LargeDropdownHeader(
     modifier: Modifier = Modifier,
-    isCategory: Boolean,
     selectedOption: String,
     isExpanded: Boolean,
     onGloballyPositioned: (LayoutCoordinates) -> Unit,
@@ -362,9 +365,11 @@ private fun LargeDropdownMenuContent(
                 animationSpec = dropdownAnimationSpec
             )
     ) {
-        Column {
-            if (isExpanded) {
-                options.forEachIndexed { index, option ->
+        if (isExpanded) {
+            LazyColumn(
+                modifier = modifier.height(240.dp)
+            ) {
+                itemsIndexed(options) { index, option ->
                     if (index > 0) {
                         HorizontalDivider(
                             thickness = 0.6.dp,
@@ -407,9 +412,9 @@ private fun LargeDropdownMenu(
 
 @Composable
 fun LargeDropdown(
-    isCategory: Boolean,
     options: List<String>,
     selectedOption: String,
+    label: String,
     onOptionSelected: (String) -> Unit
 ) {
     var isExpanded by remember { mutableStateOf(false) }
@@ -418,9 +423,11 @@ fun LargeDropdown(
     var headerHeight by remember { mutableIntStateOf(0) }
     val addYOffset = with(LocalDensity.current) { 32.dp.toPx() }.toInt()
 
-    Column {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(2.dp)
+    ) {
+        InputLabel(label = label)
         LargeDropdownHeader(
-            isCategory = isCategory,
             selectedOption = selectedOption,
             isExpanded = isExpanded,
             onGloballyPositioned = { coordinates ->
