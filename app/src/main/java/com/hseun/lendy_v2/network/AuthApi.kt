@@ -28,4 +28,7 @@ interface AuthApi {
 
     @POST("$AUTH/login")
     suspend fun login(@Body request: LoginRequest): Response<TokenResponse>
+
+    @POST("$AUTH/logout")
+    suspend fun logout(@Header("Authorization") token: String): Response<Unit>
 }

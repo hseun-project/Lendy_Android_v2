@@ -2,9 +2,14 @@ package com.hseun.lendy_v2.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.navigation
+import androidx.navigation.navArgument
+import com.hseun.lendy_v2.main.bank.ModifyBankScreen
 import com.hseun.lendy_v2.main.home.HomeScreen
+import com.hseun.lendy_v2.main.mypage.MyPageScreen
 
 @Composable
 fun MainNavigation(
@@ -27,7 +32,30 @@ fun MainNavigation(
             // 공개 대출
         }
         composable(NavigationRoutes.MY_PAGE) {
-            // 마이페이지
+            MyPageScreen(
+                navToAuth = navToAuth,
+                navToModifyBank = {
+                    // 계좌 수정으로 이동
+                }
+            )
+        }
+        composable(
+            route = NavigationRoutes.MODIFY_BANK_WITH_ARGS,
+            arguments = listOf(
+                navArgument("bankName") { type = NavType.StringType },
+                navArgument("bankNumber") { type = NavType.StringType }
+            )
+        ) { backStackEntry ->
+            val bankName = backStackEntry.arguments?.getString("bankName") ?: ""
+            val bankNumber = backStackEntry.arguments?.getString("bankNumber") ?: ""
+
+            ModifyBankScreen(
+                bankName = bankName,
+                bankNumber = bankNumber,
+                navToGoBack = {
+                    navController.popBackStack()
+                }
+            )
         }
     }
 }

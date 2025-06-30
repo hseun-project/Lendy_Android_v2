@@ -7,12 +7,17 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -37,11 +42,16 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import com.hseun.lendy_v2.R
+import com.hseun.lendy_v2.ui.theme.Gray400
 import com.hseun.lendy_v2.ui.theme.LendyFontStyle
 import com.hseun.lendy_v2.ui.theme.Main
 import com.hseun.lendy_v2.ui.theme.White
 
 private val dropdownWidth = 120.dp
+private val dropdownAnimationSpec = tween<IntSize>(
+    durationMillis = 300,
+    easing = FastOutSlowInEasing
+)
 
 @Composable
 private fun DropdownHeader(
@@ -146,10 +156,7 @@ private fun DropdownMenuContent(
             )
             .clip(RoundedCornerShape(8.dp))
             .animateContentSize(
-                animationSpec = tween<IntSize>(
-                    durationMillis = 300,
-                    easing = FastOutSlowInEasing
-                )
+                animationSpec = dropdownAnimationSpec
             )
     ) {
         Column(
@@ -209,7 +216,7 @@ fun Dropdown(
     var headerHeight by remember { mutableIntStateOf(0) }
     val addOffset = with(LocalDensity.current) { 20.dp.toPx() }.toInt()
 
-    Column (
+    Column(
         modifier = modifier
             .padding(
                 start = 30.dp
@@ -237,6 +244,215 @@ fun Dropdown(
                     isExpanded = false
                 }
                 isHeaderClick = false
+            },
+            onOptionClick = { option ->
+                onOptionSelected(option)
+                isExpanded = false
+            }
+        )
+    }
+}
+
+@Composable
+private fun LargeDropdownHeader(
+    modifier: Modifier = Modifier,
+    selectedOption: String,
+    isExpanded: Boolean,
+    onGloballyPositioned: (LayoutCoordinates) -> Unit,
+    onHeaderClick: () -> Unit
+) {
+    Box(
+        modifier = modifier
+            .padding(
+                start = 30.dp,
+                end = 30.dp
+            )
+            .fillMaxWidth()
+            .background(
+                color = White,
+                shape = RoundedCornerShape(4.dp)
+            )
+            .border(
+                width = 1.dp,
+                color = Main,
+                shape = RoundedCornerShape(4.dp)
+            )
+            .clip(
+                shape = RoundedCornerShape(4.dp)
+            )
+            .clickable {
+                onHeaderClick()
+            }
+            .padding(
+                start = 16.dp,
+                end = 16.dp,
+                top = 14.dp,
+                bottom = 14.dp
+            )
+            .onGloballyPositioned { coordinates ->
+                onGloballyPositioned(coordinates)
+            }
+    ) {
+        Text(
+            modifier = modifier.align(Alignment.CenterStart),
+            text = selectedOption,
+            style = LendyFontStyle.semi16,
+            color = Main,
+        )
+        Icon(
+            painter = painterResource(id = R.drawable.icon_dropdown),
+            contentDescription = "Dropdown Icon",
+            tint = Main,
+            modifier = modifier
+                .align(Alignment.CenterEnd)
+                .rotate(if (isExpanded) 180f else 0f)
+        )
+    }
+}
+
+@Composable
+private fun LargeDropdownMenuItem(
+    modifier: Modifier = Modifier,
+    option: String,
+    onOptionClick: () -> Unit
+) {
+    Text(
+        text = option,
+        style = LendyFontStyle.medium14,
+        modifier = modifier
+            .fillMaxWidth()
+            .clickable {
+                onOptionClick()
+            }
+            .padding(
+                start = 16.dp,
+                end = 16.dp,
+                top = 12.dp,
+                bottom = 12.dp
+            )
+    )
+}
+
+@SuppressLint("UnusedBoxWithConstraintsScope")
+@Composable
+private fun LargeDropdownMenuContent(
+    modifier: Modifier = Modifier,
+    isExpanded: Boolean,
+    options: List<String>,
+    onOptionClick: (String) -> Unit
+) {
+    BoxWithConstraints(
+        modifier = modifier
+            .padding(
+                start = 30.dp,
+                end = 30.dp
+            )
+            .fillMaxWidth()
+            .wrapContentHeight()
+            .background(
+                color = White,
+                shape = RoundedCornerShape(4.dp)
+            )
+            .border(
+                width = 0.6.dp,
+                color = Gray400,
+                shape = RoundedCornerShape(4.dp)
+            )
+            .clip(
+                shape = RoundedCornerShape(4.dp)
+            )
+            .animateContentSize(
+                animationSpec = dropdownAnimationSpec
+            )
+    ) {
+        if (isExpanded) {
+            LazyColumn(
+                modifier = modifier.height(240.dp)
+            ) {
+                itemsIndexed(options) { index, option ->
+                    if (index > 0) {
+                        HorizontalDivider(
+                            thickness = 0.6.dp,
+                            color = Gray400
+                        )
+                    }
+                    LargeDropdownMenuItem(
+                        option = option,
+                        onOptionClick = {
+                            onOptionClick(option)
+                        }
+                    )
+                }
+            }
+        }
+    }
+}
+
+
+@Composable
+private fun LargeDropdownMenu(
+    isExpanded: Boolean,
+    offset: IntOffset,
+    options: List<String>,
+    onDismissRequest: () -> Unit,
+    onOptionClick: (String) -> Unit
+) {
+    Popup(
+        alignment = Alignment.TopCenter,
+        offset = offset,
+        onDismissRequest = onDismissRequest
+    ) {
+        LargeDropdownMenuContent(
+            isExpanded = isExpanded,
+            options = options,
+            onOptionClick = onOptionClick
+        )
+    }
+}
+
+@Composable
+fun LargeDropdown(
+    options: List<String>,
+    selectedOption: String,
+    label: String,
+    onOptionSelected: (String) -> Unit
+) {
+    var isExpanded by remember { mutableStateOf(false) }
+    var isHeaderClicked by remember { mutableStateOf(false) }
+
+    var headerHeight by remember { mutableIntStateOf(0) }
+    val addYOffset = with(LocalDensity.current) { 32.dp.toPx() }.toInt()
+
+    Column(
+        verticalArrangement = Arrangement.spacedBy(2.dp)
+    ) {
+        InputLabel(label = label)
+        LargeDropdownHeader(
+            selectedOption = selectedOption,
+            isExpanded = isExpanded,
+            onGloballyPositioned = { coordinates ->
+                if (headerHeight == 0) {
+                    headerHeight = coordinates.size.height
+                }
+            },
+            onHeaderClick = {
+                isExpanded = !isExpanded
+                isHeaderClicked = true
+            }
+        )
+
+        LargeDropdownMenu(
+            isExpanded = isExpanded,
+            offset = IntOffset(
+                x = 0,
+                y = headerHeight + addYOffset
+            ),
+            options = options,
+            onDismissRequest = {
+                if (!isHeaderClicked) {
+                    isExpanded = false
+                }
+                isHeaderClicked = false
             },
             onOptionClick = { option ->
                 onOptionSelected(option)

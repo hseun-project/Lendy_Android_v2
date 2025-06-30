@@ -13,10 +13,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.hseun.lendy_v2.navigation.AuthNavigation
 import com.hseun.lendy_v2.navigation.BottomNavigation
 import com.hseun.lendy_v2.navigation.MainNavigation
+import com.hseun.lendy_v2.navigation.NavigationRoutes
 import com.hseun.lendy_v2.ui.LendyTopBar
 import com.hseun.lendy_v2.ui.theme.Lendy_v2Theme
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,6 +36,12 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+private val bottomNav = listOf(
+    NavigationRoutes.OPEN_LOAN,
+    NavigationRoutes.HOME,
+    NavigationRoutes.MY_PAGE
+)
+
 @Composable
 fun LendyScreen(
     modifier: Modifier = Modifier
@@ -41,10 +49,17 @@ fun LendyScreen(
     val navController = rememberNavController()
     var isAuthenticated by remember { mutableStateOf(false) }
 
+    val currentBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination = currentBackStackEntry?.destination?.route
+
     if (isAuthenticated) {
         Scaffold(
             topBar = { LendyTopBar() },
-            bottomBar = { BottomNavigation(navController = navController) }
+            bottomBar = {
+                if (currentDestination in bottomNav) {
+                    BottomNavigation(navController = navController)
+                }
+            }
         ) {
             Box(modifier = modifier.padding(it)) {
                 MainNavigation(

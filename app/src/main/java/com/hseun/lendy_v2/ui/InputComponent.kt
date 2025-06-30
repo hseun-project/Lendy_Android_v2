@@ -23,6 +23,7 @@ import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -119,6 +120,7 @@ private fun LendyTextField(
     input: String,
     hint: String,
     imeAction: ImeAction,
+    keyboardType: KeyboardType,
     onValueChange: (String) -> Unit
 ) {
     LendyBasicTextField(
@@ -127,7 +129,7 @@ private fun LendyTextField(
         hint = hint,
         imeAction = imeAction,
         textStyle = LendyFontStyle.medium15,
-        keyboardType = KeyboardType.Text,
+        keyboardType = keyboardType,
         onValueChange = onValueChange
     )
 }
@@ -233,7 +235,7 @@ private fun LendyCodeTextField(
 }
 
 @Composable
-private fun InputLabel(
+fun InputLabel(
     label: String
 ) {
     Text(
@@ -290,6 +292,7 @@ fun LendyInput(
     hint: String,
     imeAction: ImeAction,
     errorType: InputErrorType,
+    keyboardType: KeyboardType = KeyboardType.Text,
     onValueChange: (String) -> Unit
 ) {
     LendyBasicInput(
@@ -300,6 +303,7 @@ fun LendyInput(
                 input = input,
                 hint = hint,
                 imeAction = imeAction,
+                keyboardType = keyboardType,
                 onValueChange = onValueChange
             )
         }
