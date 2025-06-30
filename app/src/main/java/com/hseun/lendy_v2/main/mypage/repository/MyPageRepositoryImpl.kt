@@ -6,8 +6,9 @@ import com.hseun.lendy_v2.network.model.user.ApplyListItemData
 import com.hseun.lendy_v2.network.model.user.UserInfoResponse
 import com.hseun.lendy_v2.utils.Token
 import com.hseun.lendy_v2.utils.apiCall
+import javax.inject.Inject
 
-class MyPageRepositoryImpl(
+class MyPageRepositoryImpl @Inject constructor(
     private val userApi: UserApi,
     private val authApi: AuthApi,
     private val token: Token
