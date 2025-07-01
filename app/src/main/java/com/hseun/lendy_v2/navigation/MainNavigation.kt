@@ -11,6 +11,7 @@ import com.hseun.lendy_v2.main.bank.ModifyBankScreen
 import com.hseun.lendy_v2.main.home.HomeScreen
 import com.hseun.lendy_v2.main.mypage.MyPageScreen
 import com.hseun.lendy_v2.main.openloan.OpenLoanScreen
+import com.hseun.lendy_v2.main.request.detail.RequestDetailScreen
 
 @Composable
 fun MainNavigation(
@@ -56,6 +57,23 @@ fun MainNavigation(
                 bankName = bankName,
                 bankNumber = bankNumber,
                 navToGoBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+        composable(
+            route = NavigationRoutes.REQUEST_DETAIL,
+            arguments = listOf(
+                navArgument("requestId") { type = NavType.LongType }
+            )
+        ) { backStackEntry ->
+            val id = backStackEntry.arguments?.getLong("requestId") ?: 0
+            RequestDetailScreen(
+                requestId = id,
+                navToSend = {
+                    // 송금 화면으로 이동
+                },
+                navToBack = {
                     navController.popBackStack()
                 }
             )
