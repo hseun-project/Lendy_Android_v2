@@ -117,7 +117,9 @@ fun RequestDetailScreen(
 
     if (isConfirmClick) {
         LendyConfirmDialog(
-            title = "대출 요청을 수락하시겠습니까?",
+            title = "대출 요청을 승인하시겠습니까?",
+            isDescription = true,
+            description = "${debtName}님의 ${money}원 대출 요청",
             onClickCancel = {
                 isConfirmClick = false
             },
@@ -129,6 +131,8 @@ fun RequestDetailScreen(
     if (isCancelClick) {
         LendyConfirmDialog(
             title = "대출 요청을 거절하시겠습니까?",
+            isDescription = true,
+            description = "${debtName}님의 ${money}원 대출 요청",
             onClickCancel = {
                 isCancelClick = false
             },
