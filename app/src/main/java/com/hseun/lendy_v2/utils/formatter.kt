@@ -7,3 +7,7 @@ fun formatTimer(seconds: Int): String {
     val remainingSeconds = seconds % 60
     return String.format(Locale.getDefault(), "%01d:%02d", minutes, remainingSeconds)
 }
+
+fun formatMoney(money: Int): String {
+    return String.format(Locale.KOREA, "%,d", money)
+}

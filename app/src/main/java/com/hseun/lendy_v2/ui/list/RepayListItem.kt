@@ -29,6 +29,7 @@ import com.hseun.lendy_v2.ui.utils.noRippleClickable
 import com.hseun.lendy_v2.utils.DuringType
 import com.hseun.lendy_v2.utils.calculateDueDate
 import com.hseun.lendy_v2.utils.calculateEndDate
+import com.hseun.lendy_v2.utils.formatMoney
 import java.util.Date
 import java.util.Locale
 
@@ -94,11 +95,11 @@ fun MyRepayItemText(
             verticalAlignment = Alignment.Bottom
         ) {
             Text(
-                text = String.format(Locale.getDefault(), "%,d", money - repayment),
+                text = formatMoney(money - repayment),
                 style = LendyFontStyle.semi18
             )
             Text(
-                text = " / ${String.format(Locale.getDefault(), " %,d", money)}",
+                text = " / ${formatMoney(money)}",
                 style = LendyFontStyle.medium14,
                 color = Gray600
             )
