@@ -1,12 +1,15 @@
 package com.hseun.lendy_v2.network
 
+import com.hseun.lendy_v2.network.model.loan.ChangeStateRequest
 import com.hseun.lendy_v2.network.model.loan.LentListItemData
 import com.hseun.lendy_v2.network.model.loan.RequestDetailResponse
 import com.hseun.lendy_v2.network.model.loan.RequestListItemData
 import com.hseun.lendy_v2.utils.ApplyLoan
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.PATCH
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -27,4 +30,11 @@ interface LoanApi {
         @Header("Authorization") token: String,
         @Path("applyLoanId") id: Long
     ): Response<RequestDetailResponse>
+
+    @PATCH("$LOAN/{applyLoanId}")
+    suspend fun changeRequestState(
+        @Header("Authorization") token: String,
+        @Path("applyLoanId") id: Long,
+        @Body request: ChangeStateRequest
+    ): Response<Unit>
 }
