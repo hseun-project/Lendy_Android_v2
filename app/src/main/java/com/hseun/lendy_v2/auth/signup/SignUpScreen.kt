@@ -101,6 +101,10 @@ fun SignUpScreen(
         modifier = modifier
             .fillMaxSize()
             .background(White)
+            .padding(
+                start = 30.dp,
+                end = 30.dp
+            )
             .addFocusCleaner(focusManager)
     ) {
         Column(

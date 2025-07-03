@@ -75,6 +75,10 @@ fun MyPageScreen(
             modifier = modifier
                 .fillMaxWidth()
                 .background(BackgroundColor)
+                .padding(
+                    start = 30.dp,
+                    end = 30.dp
+                )
                 .verticalScroll(scrollState)
         ) {
             Spacer(modifier = modifier.height(30.dp))
@@ -137,10 +141,6 @@ private fun MyInfo(
 ) {
     Row (
         modifier = modifier
-            .padding(
-                start = 30.dp,
-                end = 30.dp
-            )
             .fillMaxWidth()
             .wrapContentHeight()
             .dropShadow()
@@ -194,10 +194,6 @@ private fun BankInfo(
 ) {
     Column (
         modifier = modifier
-            .padding(
-                start = 30.dp,
-                end = 30.dp
-            )
             .fillMaxWidth()
             .wrapContentHeight()
             .dropShadow()
@@ -243,10 +239,6 @@ fun ApplyLoanList(
 
     Column (
         modifier = modifier
-            .padding(
-                start = 30.dp,
-                end = 30.dp
-            )
             .fillMaxWidth()
             .wrapContentHeight()
             .dropShadow()

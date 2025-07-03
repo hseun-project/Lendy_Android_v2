@@ -260,10 +260,6 @@ private fun LargeDropdownHeader(
 ) {
     Box(
         modifier = modifier
-            .padding(
-                start = 30.dp,
-                end = 30.dp
-            )
             .fillMaxWidth()
             .background(
                 color = White,
@@ -340,10 +336,6 @@ private fun LargeDropdownMenuContent(
 ) {
     BoxWithConstraints(
         modifier = modifier
-            .padding(
-                start = 30.dp,
-                end = 30.dp
-            )
             .fillMaxWidth()
             .wrapContentHeight()
             .background(

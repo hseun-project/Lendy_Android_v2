@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -66,6 +67,10 @@ fun LoginScreen(
         modifier = modifier
             .fillMaxSize()
             .background(White)
+            .padding(
+                start = 30.dp,
+                end = 30.dp
+            )
             .addFocusCleaner(focusManager)
     ) {
         Column(
@@ -76,6 +81,7 @@ fun LoginScreen(
             AuthLogo()
             LendyMailInput(
                 input = email,
+                errorType = InputErrorType.NONE,
                 imeAction = ImeAction.Next,
                 onValueChange = { input ->
                     viewModel.onEmailChange(input)
@@ -93,6 +99,7 @@ fun LoginScreen(
             )
         }
         AuthButton(
+            modifier = modifier.align(Alignment.BottomCenter),
             enabled = buttonEnabled,
             loading = isLoading,
             buttonText = stringResource(id = R.string.login),
