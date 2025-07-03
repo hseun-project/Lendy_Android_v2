@@ -2,10 +2,14 @@ package com.hseun.lendy_v2.ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -32,7 +36,10 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.max
+import androidx.compose.ui.unit.min
 import com.hseun.lendy_v2.R
 import com.hseun.lendy_v2.ui.theme.Gray400
 import com.hseun.lendy_v2.ui.theme.Gray500
@@ -53,7 +60,8 @@ private fun LendyBasicTextField(
     keyboardType: KeyboardType,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     trailingIcon: (@Composable (() -> Unit))? = null,
-    onValueChange: (String) -> Unit
+    onValueChange: (String) -> Unit,
+    onSearch: () -> Unit = {}
 ) {
     val focusManager = LocalFocusManager.current
     var isFocused by remember { mutableStateOf(false) }
@@ -71,8 +79,8 @@ private fun LendyBasicTextField(
             .padding(
                 start = 4.dp,
                 end = 4.dp,
-                top = 12.dp,
-                bottom = 12.dp
+                top = 10.dp,
+                bottom = 10.dp
             )
             .onFocusChanged { isFocused = it.isFocused }
     ) {
@@ -92,7 +100,11 @@ private fun LendyBasicTextField(
             ),
             keyboardActions = KeyboardActions(
                 onDone = { focusManager.clearFocus(true) },
-                onNext = { focusManager.moveFocus(FocusDirection.Next) }
+                onNext = { focusManager.moveFocus(FocusDirection.Next) },
+                onSearch = {
+                    focusManager.clearFocus(true)
+                    onSearch()
+                }
             ),
             visualTransformation = visualTransformation,
             textStyle = textStyle,
@@ -121,7 +133,8 @@ private fun LendyTextField(
     hint: String,
     imeAction: ImeAction,
     keyboardType: KeyboardType,
-    onValueChange: (String) -> Unit
+    onValueChange: (String) -> Unit,
+    onSearch: () -> Unit = {}
 ) {
     LendyBasicTextField(
         modifier = modifier,
@@ -130,7 +143,8 @@ private fun LendyTextField(
         imeAction = imeAction,
         textStyle = LendyFontStyle.medium15,
         keyboardType = keyboardType,
-        onValueChange = onValueChange
+        onValueChange = onValueChange,
+        onSearch = onSearch
     )
 }
 
@@ -173,17 +187,28 @@ private fun LendyNumberTextField(
     modifier: Modifier = Modifier,
     input: String,
     imeAction: ImeAction,
+    unitText: String,
     onValueChange: (String) -> Unit
 ) {
-    LendyBasicTextField(
-        modifier = modifier,
-        input = input,
-        hint = "0",
-        imeAction = imeAction,
-        textStyle = LendyFontStyle.medium17,
-        keyboardType = KeyboardType.Decimal,
-        onValueChange = onValueChange
-    )
+    Row (
+        verticalAlignment = Alignment.Bottom
+    ) {
+        LendyBasicTextField(
+            modifier = modifier,
+            input = input,
+            hint = "0",
+            imeAction = imeAction,
+            textStyle = LendyFontStyle.medium17,
+            keyboardType = KeyboardType.Decimal,
+            onValueChange = onValueChange
+        )
+        Text(
+            modifier = Modifier
+                .padding(bottom = 2.dp),
+            text = unitText,
+            style = LendyFontStyle.medium20
+        )
+    }
 }
 
 @Composable
@@ -256,7 +281,7 @@ private fun ErrorMessage(
                 end = 2.dp,
                 top = 2.dp
             )
-            .fillMaxWidth(),
+            .widthIn(max = Dp.Infinity),
         text = stringResource(inputErrorMessage(errorType)),
         style = LendyFontStyle.medium12,
         color = Red
@@ -272,11 +297,6 @@ private fun LendyBasicInput(
 ) {
     Column(
         modifier = modifier
-            .padding(
-                start = 30.dp,
-                end = 30.dp
-            )
-            .fillMaxWidth()
             .wrapContentHeight(),
     ) {
         InputLabel(label = label)
@@ -293,7 +313,8 @@ fun LendyInput(
     imeAction: ImeAction,
     errorType: InputErrorType,
     keyboardType: KeyboardType = KeyboardType.Text,
-    onValueChange: (String) -> Unit
+    onValueChange: (String) -> Unit,
+    onSearch: () -> Unit = {}
 ) {
     LendyBasicInput(
         label = label,
@@ -304,7 +325,8 @@ fun LendyInput(
                 hint = hint,
                 imeAction = imeAction,
                 keyboardType = keyboardType,
-                onValueChange = onValueChange
+                onValueChange = onValueChange,
+                onSearch = onSearch
             )
         }
     )
@@ -335,8 +357,10 @@ fun LendyPasswordInput(
 
 @Composable
 fun LendyNumberInput(
+    modifier: Modifier = Modifier,
     label: String,
     input: String,
+    unitText: String,
     imeAction: ImeAction,
     errorType: InputErrorType,
     onValueChange: (String) -> Unit
@@ -346,8 +370,10 @@ fun LendyNumberInput(
         errorType = errorType,
         textField = {
             LendyNumberTextField(
+                modifier = modifier,
                 input = input,
                 imeAction = imeAction,
+                unitText = unitText,
                 onValueChange = onValueChange
             )
         }
@@ -386,14 +412,21 @@ fun LendySendMailInput(
 @Composable
 fun LendyMailInput(
     input: String,
+    errorType: InputErrorType,
     imeAction: ImeAction,
     onValueChange: (String) -> Unit
 ) {
-    LendyMailTextField(
-        input = input,
-        imeAction = imeAction,
-        onValueChange = onValueChange,
-        trailingIcon = {}
+    LendyBasicInput(
+        label = "이메일",
+        errorType = errorType,
+        textField = {
+            LendyMailTextField(
+                input = input,
+                imeAction = imeAction,
+                onValueChange = onValueChange,
+                trailingIcon = {}
+            )
+        }
     )
 }
 

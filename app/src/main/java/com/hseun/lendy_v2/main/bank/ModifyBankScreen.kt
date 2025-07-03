@@ -79,6 +79,11 @@ fun ModifyBankScreen(
         modifier = modifier
             .fillMaxSize()
             .background(White)
+            .padding(
+                start = 30.dp,
+                end = 30.dp,
+                bottom = 40.dp
+            )
             .addFocusCleaner(focusManager)
     ) {
         Column(
@@ -108,12 +113,9 @@ fun ModifyBankScreen(
             )
         }
         LendyButton(
-            modifier = modifier
-                .padding(
-                    bottom = 40.dp
-                )
-                .align(Alignment.BottomCenter),
+            modifier = modifier.align(Alignment.BottomCenter),
             enabled = buttonEnabled,
+            loading = isLoading,
             text = "계좌 수정",
             onClick = {
                 viewModel.onClickModifyBank()

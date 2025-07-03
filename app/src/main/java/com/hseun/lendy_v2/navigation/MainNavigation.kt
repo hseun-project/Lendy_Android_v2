@@ -1,6 +1,7 @@
 package com.hseun.lendy_v2.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -11,6 +12,8 @@ import com.hseun.lendy_v2.main.bank.ModifyBankScreen
 import com.hseun.lendy_v2.main.home.HomeScreen
 import com.hseun.lendy_v2.main.mypage.MyPageScreen
 import com.hseun.lendy_v2.main.openloan.OpenLoanScreen
+import com.hseun.lendy_v2.main.request.apply.ApplyScreen
+import com.hseun.lendy_v2.main.request.detail.RequestDetailScreen
 
 @Composable
 fun MainNavigation(
@@ -25,7 +28,7 @@ fun MainNavigation(
             HomeScreen(
                 navController = navController,
                 navToApplyLoan = {
-                    // 대출 신청 화면으로 이동
+                    navController.navigate(NavigationRoutes.APPLY_LOAN)
                 }
             )
         }
@@ -37,8 +40,8 @@ fun MainNavigation(
         composable(NavigationRoutes.MY_PAGE) {
             MyPageScreen(
                 navToAuth = navToAuth,
-                navToModifyBank = {
-                    // 계좌 수정으로 이동
+                navToModifyBank = { bankName, bankNumber ->
+                    navController.navigate("${NavigationRoutes.MODIFY_BANK}/$bankName/$bankNumber")
                 }
             )
         }
@@ -56,6 +59,30 @@ fun MainNavigation(
                 bankName = bankName,
                 bankNumber = bankNumber,
                 navToGoBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+        composable(
+            route = NavigationRoutes.REQUEST_DETAIL,
+            arguments = listOf(
+                navArgument("requestId") { type = NavType.LongType }
+            )
+        ) { backStackEntry ->
+            val id = backStackEntry.arguments?.getLong("requestId") ?: 0
+            RequestDetailScreen(
+                requestId = id,
+                navToSend = {
+                    // 송금 화면으로 이동
+                },
+                navToBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+        composable(NavigationRoutes.APPLY_LOAN) {
+            ApplyScreen(
+                navToBack = {
                     navController.popBackStack()
                 }
             )

@@ -21,6 +21,7 @@ import com.hseun.lendy_v2.ui.theme.White
 import com.hseun.lendy_v2.ui.utils.dropShadow
 import com.hseun.lendy_v2.utils.ApplyLoan
 import com.hseun.lendy_v2.utils.ApplyState
+import com.hseun.lendy_v2.utils.formatMoney
 import java.util.Locale
 
 @Composable
@@ -58,7 +59,7 @@ fun ApplyListItem(
         }
         ApplyItemText(
             label = "요청 금액",
-            value = "${String.format(Locale.getDefault(), "%,d", data.money)}원"
+            value = "${formatMoney(data.money)}원"
         )
         ApplyItemText(
             label = "이자율",

@@ -23,6 +23,7 @@ import com.hseun.lendy_v2.ui.theme.LendyFontStyle
 import com.hseun.lendy_v2.ui.theme.White
 import com.hseun.lendy_v2.ui.utils.dropShadow
 import com.hseun.lendy_v2.utils.DuringType
+import com.hseun.lendy_v2.utils.formatMoney
 import java.util.Locale
 
 @Composable
@@ -107,7 +108,7 @@ private fun RequestItemText(
                     top = 4.dp
                 )
                 .align(Alignment.TopEnd),
-            text = "₩ ${String.format(Locale.getDefault(), "%,d", money)}",
+            text = "₩ ${formatMoney(money)}",
             style = LendyFontStyle.bold20
         )
     }

@@ -48,7 +48,7 @@ fun MyPageScreen(
     modifier: Modifier = Modifier,
     viewModel: MyPageViewModel = hiltViewModel(),
     navToAuth: () -> Unit,
-    navToModifyBank: () -> Unit
+    navToModifyBank: (String, String) -> Unit
 ) {
     val email = viewModel.email
     val name = viewModel.name
@@ -75,6 +75,10 @@ fun MyPageScreen(
             modifier = modifier
                 .fillMaxWidth()
                 .background(BackgroundColor)
+                .padding(
+                    start = 30.dp,
+                    end = 30.dp
+                )
                 .verticalScroll(scrollState)
         ) {
             Spacer(modifier = modifier.height(30.dp))
@@ -137,10 +141,6 @@ private fun MyInfo(
 ) {
     Row (
         modifier = modifier
-            .padding(
-                start = 30.dp,
-                end = 30.dp
-            )
             .fillMaxWidth()
             .wrapContentHeight()
             .dropShadow()
@@ -190,14 +190,10 @@ private fun BankInfo(
     bankName: String,
     bankNumber: String,
     money: Int,
-    navToModifyBank: () -> Unit
+    navToModifyBank: (String, String) -> Unit
 ) {
     Column (
         modifier = modifier
-            .padding(
-                start = 30.dp,
-                end = 30.dp
-            )
             .fillMaxWidth()
             .wrapContentHeight()
             .dropShadow()
@@ -221,7 +217,7 @@ private fun BankInfo(
                 style = LendyFontStyle.semi14
             )
             Text(
-                modifier = modifier.noRippleClickable { navToModifyBank() },
+                modifier = modifier.noRippleClickable { navToModifyBank(bankName, bankNumber) },
                 text = "수정",
                 style = LendyFontStyle.medium14,
                 color = Gray600
@@ -243,10 +239,6 @@ fun ApplyLoanList(
 
     Column (
         modifier = modifier
-            .padding(
-                start = 30.dp,
-                end = 30.dp
-            )
             .fillMaxWidth()
             .wrapContentHeight()
             .dropShadow()
