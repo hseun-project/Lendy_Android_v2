@@ -10,8 +10,10 @@ object NavigationRoutes {
     const val HOME = "home"
     const val MY_PAGE = "myPage"
 
-    private const val MODIFY_BANK = "modifyBank"
+    const val MODIFY_BANK = "modifyBank"
     const val MODIFY_BANK_WITH_ARGS = "$MODIFY_BANK/{bankName}/{bankNumber}"
 
     const val REQUEST_DETAIL = "requestDetail/{requestId}"
+
+    const val APPLY_LOAN = "apply"
 }

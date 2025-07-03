@@ -48,7 +48,7 @@ fun MyPageScreen(
     modifier: Modifier = Modifier,
     viewModel: MyPageViewModel = hiltViewModel(),
     navToAuth: () -> Unit,
-    navToModifyBank: () -> Unit
+    navToModifyBank: (String, String) -> Unit
 ) {
     val email = viewModel.email
     val name = viewModel.name
@@ -190,7 +190,7 @@ private fun BankInfo(
     bankName: String,
     bankNumber: String,
     money: Int,
-    navToModifyBank: () -> Unit
+    navToModifyBank: (String, String) -> Unit
 ) {
     Column (
         modifier = modifier
@@ -217,7 +217,7 @@ private fun BankInfo(
                 style = LendyFontStyle.semi14
             )
             Text(
-                modifier = modifier.noRippleClickable { navToModifyBank() },
+                modifier = modifier.noRippleClickable { navToModifyBank(bankName, bankNumber) },
                 text = "수정",
                 style = LendyFontStyle.medium14,
                 color = Gray600
