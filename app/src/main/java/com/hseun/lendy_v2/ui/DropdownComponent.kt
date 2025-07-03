@@ -218,9 +218,6 @@ fun Dropdown(
 
     Column(
         modifier = modifier
-            .padding(
-                start = 30.dp
-            )
     ) {
         DropdownHeader(
             selectedOption = selectedOption,

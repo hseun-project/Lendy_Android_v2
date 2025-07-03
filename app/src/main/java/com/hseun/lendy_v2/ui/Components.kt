@@ -60,7 +60,7 @@ fun AuthLogo(modifier: Modifier = Modifier) {
     Spacer(modifier = modifier.height(80.dp))
     Image(
         modifier = modifier
-            .fillMaxWidth(0.45f)
+            .fillMaxWidth(0.6f)
             .wrapContentHeight(),
         painter = painterResource(id = R.drawable.lendy_logo_auth),
         contentDescription = "Lendy Logo",
