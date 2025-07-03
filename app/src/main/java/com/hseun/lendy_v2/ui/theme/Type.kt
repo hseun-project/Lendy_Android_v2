@@ -60,6 +60,8 @@ object LendyFontStyle {
     val medium16 = createTextStyle(FontWeight.Medium, 16)
     val medium17 = createTextStyle(FontWeight.Medium, 17)
     val medium18 = createTextStyle(FontWeight.Medium, 18)
+    val medium20 = createTextStyle(FontWeight.Medium, 20)
+    val medium24 = createTextStyle(FontWeight.Medium, 24)
 
     val semi11 = createTextStyle(FontWeight.SemiBold, 11)
     val semi12 = createTextStyle(FontWeight.SemiBold, 12)
