@@ -60,7 +60,8 @@ private fun LendyBasicTextField(
     keyboardType: KeyboardType,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     trailingIcon: (@Composable (() -> Unit))? = null,
-    onValueChange: (String) -> Unit
+    onValueChange: (String) -> Unit,
+    onSearch: () -> Unit = {}
 ) {
     val focusManager = LocalFocusManager.current
     var isFocused by remember { mutableStateOf(false) }
@@ -99,7 +100,11 @@ private fun LendyBasicTextField(
             ),
             keyboardActions = KeyboardActions(
                 onDone = { focusManager.clearFocus(true) },
-                onNext = { focusManager.moveFocus(FocusDirection.Next) }
+                onNext = { focusManager.moveFocus(FocusDirection.Next) },
+                onSearch = {
+                    focusManager.clearFocus(true)
+                    onSearch()
+                }
             ),
             visualTransformation = visualTransformation,
             textStyle = textStyle,
@@ -128,7 +133,8 @@ private fun LendyTextField(
     hint: String,
     imeAction: ImeAction,
     keyboardType: KeyboardType,
-    onValueChange: (String) -> Unit
+    onValueChange: (String) -> Unit,
+    onSearch: () -> Unit = {}
 ) {
     LendyBasicTextField(
         modifier = modifier,
@@ -137,7 +143,8 @@ private fun LendyTextField(
         imeAction = imeAction,
         textStyle = LendyFontStyle.medium15,
         keyboardType = keyboardType,
-        onValueChange = onValueChange
+        onValueChange = onValueChange,
+        onSearch = onSearch
     )
 }
 
@@ -306,7 +313,8 @@ fun LendyInput(
     imeAction: ImeAction,
     errorType: InputErrorType,
     keyboardType: KeyboardType = KeyboardType.Text,
-    onValueChange: (String) -> Unit
+    onValueChange: (String) -> Unit,
+    onSearch: () -> Unit = {}
 ) {
     LendyBasicInput(
         label = label,
@@ -317,7 +325,8 @@ fun LendyInput(
                 hint = hint,
                 imeAction = imeAction,
                 keyboardType = keyboardType,
-                onValueChange = onValueChange
+                onValueChange = onValueChange,
+                onSearch = onSearch
             )
         }
     )
